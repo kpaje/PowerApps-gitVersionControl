@@ -1,0 +1,204 @@
+MainScreen As screen:
+
+    "'Image-kclsLogo_Mainscn' As image":
+        Height: =276
+        HoverBorderColor: =ColorFade('Image-kclsLogo_Mainscn'.BorderColor, 20%)
+        HoverFill: =ColorFade('Image-kclsLogo_Mainscn'.Fill, 20%)
+        Image: =kclslogo1
+        PressedBorderColor: =ColorFade('Image-kclsLogo_Mainscn'.BorderColor, -20%)
+        PressedFill: =ColorFade('Image-kclsLogo_Mainscn'.Fill, -20%)
+        Width: =261
+        ZIndex: =7
+
+    "'Group-IconsButtons_MainScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =9
+
+        "'Button-Settings_MainScn' As button":
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =3
+            Fill: =RGBA(105,118,241, 1)
+            FocusedBorderColor: =RGBA(119,61,130, 1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Courier New'
+            Height: =266
+            HoverBorderColor: =ColorFade('Button-Settings_MainScn'.BorderColor, 20%)
+            HoverFill: =RGBA(105,118,241, 1)
+            OnSelect: =//Navigate(SettingsScreen, ScreenTransition.UnCover)
+            PaddingTop: =90
+            PressedBorderColor: =RGBA(119,61,130, 1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(221,178,6, 1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =24
+            Text: =""
+            Width: =261
+            Y: =276
+            ZIndex: =1
+
+        "'Button-Browse_MainScn' As button":
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =3
+            Fill: =RGBA(119,61,130, 1)
+            FocusedBorderColor: =RGBA(56, 96, 178, 1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Courier New'
+            Height: =542
+            HoverBorderColor: =ColorFade('Button-Browse_MainScn'.BorderColor, 20%)
+            HoverFill: =RGBA(119,61,130, 1)
+            OnSelect: =Navigate(BrowseScreen, ScreenTransition.UnCover)
+            PaddingTop: =110
+            PressedBorderColor: ='Button-Browse_MainScn'.Fill
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(56, 96, 178, 1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =32
+            Text: ="Browse"
+            Width: =379
+            X: =261
+            ZIndex: =2
+
+        "'Button-Transfer_MainScn' As button":
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =3
+            Fill: =RGBA(17, 157, 164, 1)
+            FocusedBorderColor: =RGBA(75,191,107,1)
+            FocusedBorderThickness: =0
+            Font: =Font.'Courier New'
+            Height: =594
+            HoverBorderColor: =ColorFade('Button-Transfer_MainScn'.BorderColor, 20%)
+            HoverFill: =
+            OnSelect: |-
+                =Concurrent(
+                    NewForm('Form-Edit_EdtScn'),
+                    Set(
+                        [@assetTag],
+                        ""
+                    ),
+                    Set(
+                        assignEmployee,
+                        ""
+                    ),
+                    Clear(Staging)
+                    /*Set(
+                        [@toastUploadComplete],
+                        false
+                    )*/
+                );
+                Set(
+                    clearEmployeeSearchBar,
+                    true
+                );
+                Set(
+                    clearEmployeeSearchBar,
+                    false
+                );
+                Navigate(
+                    EditScreen,
+                    ScreenTransition.UnCover,
+                    {formItems: 'Gallery-Browse_BrwScn'.Selected}
+                );
+            PaddingTop: =150
+            PressedBorderColor: =RGBA(75,191,107,1)
+            PressedColor: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(75,191,107,1)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =45
+            Text: ="Transfer"
+            Width: =640
+            Y: =542
+            ZIndex: =3
+
+        "'Icon-Setting_MainScn' As icon.Settings":
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledFill: ='Icon-Setting_MainScn'.Fill
+            Height: =77
+            HoverBorderColor: =ColorFade('Icon-Setting_MainScn'.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: ='Icon-Setting_MainScn'.Fill
+            Icon: =Icon.Settings
+            OnSelect: =Navigate(SettingsScreen, ScreenTransition.UnCover)
+            PressedBorderColor: =ColorFade('Icon-Setting_MainScn'.BorderColor, -20%)
+            PressedColor: =RGBA(221,178,6, 1)
+            PressedFill: ='Icon-Setting_MainScn'.Fill
+            Visible: =false
+            Width: =75
+            X: =93
+            Y: =326
+            ZIndex: =4
+
+        "'Icon-Transfer_MainScn' As icon.Vehicles":
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledFill: ='Icon-Transfer_MainScn'.Fill
+            Height: =159
+            HoverBorderColor: =ColorFade('Icon-Transfer_MainScn'.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: ='Icon-Transfer_MainScn'.Fill
+            Icon: =Icon.Manufacture
+            OnSelect: |-
+                =Concurrent(
+                    NewForm('Form-Edit_EdtScn'),
+                    Set(
+                        [@assetTag],
+                        ""
+                    ),
+                    Set(
+                        assignEmployee,
+                        ""
+                    ),
+                    Clear(Staging)
+                    /*Set(
+                        [@toastUploadComplete],
+                        false
+                    )*/
+                );
+                Set(
+                    clearEmployeeSearchBar,
+                    true
+                );
+                Set(
+                    clearEmployeeSearchBar,
+                    false
+                );
+                Navigate(
+                    EditScreen,
+                    ScreenTransition.UnCover,
+                    {formItems: 'Gallery-Browse_BrwScn'.Selected}
+                );
+            PressedBorderColor: =ColorFade('Icon-Transfer_MainScn'.BorderColor, -20%)
+            PressedColor: =RGBA(75,191,107,1)
+            PressedFill: ='Icon-Transfer_MainScn'.Fill
+            Width: =223
+            X: =208
+            Y: =684
+            ZIndex: =5
+
+        "'Icon-Browse_MainScn' As icon.Database":
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledFill: ='Icon-Browse_MainScn'.Fill
+            Height: =118
+            HoverBorderColor: =ColorFade('Icon-Browse_MainScn'.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            HoverFill: ='Icon-Browse_MainScn'.Fill
+            Icon: =Icon.Database
+            OnSelect: =Navigate(BrowseScreen, ScreenTransition.UnCover)
+            PressedBorderColor: =ColorFade('Icon-Browse_MainScn'.BorderColor, -20%)
+            PressedColor: =RGBA(56, 96, 178, 1)
+            PressedFill: ='Icon-Browse_MainScn'.Fill
+            Width: =117
+            X: =392
+            Y: =161
+            ZIndex: =6
+

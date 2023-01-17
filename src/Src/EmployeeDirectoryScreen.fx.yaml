@@ -1,0 +1,218 @@
+"EmployeeDirectoryScreen As screen.'phoneLayout_PeoplePicker_ver3.0'":
+
+    RectQuickActionBar1 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    TextSearchBox1 As text:
+        Align: =Left
+        Default: =""
+        Height: =108
+        HintText: ="Search"
+        PaddingLeft: =90
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Reset: =clearEmployeeSearchBar
+        Size: =39
+        Width: =Parent.Width - Self.X * 2
+        Y: =99
+        ZIndex: =2
+
+    SearchIcon1 As icon.Search:
+        DisabledFill: =SearchIcon1.Fill
+        Height: =109
+        HoverBorderColor: =ColorFade(SearchIcon1.BorderColor, 20%)
+        HoverColor: =ColorFade(SearchIcon1.Color, 20%)
+        HoverFill: =SearchIcon1.Fill
+        Icon: =Icon.Search
+        PaddingBottom: =14
+        PaddingLeft: =14
+        PaddingRight: =14
+        PaddingTop: =14
+        PressedBorderColor: =ColorFade(SearchIcon1.BorderColor, -20%)
+        PressedColor: =ColorFade(SearchIcon1.Color, -20%)
+        PressedFill: =SearchIcon1.Fill
+        Tooltip: ="Search"
+        Width: =90
+        Y: =99
+        ZIndex: =3
+
+    RectSeparator1 As rectangle:
+        Height: =1
+        Width: =Parent.Width - Self.X * 2
+        Y: =TextSearchBox1.Y + TextSearchBox1.Height
+        ZIndex: =4
+
+    UserBrowseGallery1 As gallery.PeoplePickerGallery:
+        AccessibleLabel: ="User look up search results"
+        Fill: =TextSearchBox1.Fill
+        Height: =Parent.Height - Self.Y
+        Items: |-
+            =If(!IsBlank(Trim(TextSearchBox1.Text)), Office365Users.SearchUser({searchTerm: Trim(TextSearchBox1.Text), top: 15}))
+        Layout: =Layout.Vertical
+        OnSelect: |-
+            =Set(assignEmployee, ThisItem.Mail);
+            Navigate(EditScreen, ScreenTransition.UnCoverRight)
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =159
+        Visible: =!IsBlank(Trim(TextSearchBox1.Text))
+        Width: =Parent.Width - Self.X * 2
+        Y: =TextSearchBox1.Y + TextSearchBox1.Height
+        ZIndex: =5
+
+        iconUser1 As icon.Person:
+            Fill: =RectQuickActionBar1.Fill
+            Height: =ProfileImage1.Height
+            Icon: =Icon.Person
+            OnSelect: =Select(Title2)
+            PaddingBottom: =15
+            PaddingLeft: =15
+            PaddingRight: =15
+            PaddingTop: =15
+            Width: =ProfileImage1.Width
+            X: =ProfileImage1.X
+            Y: =ProfileImage1.Y
+            ZIndex: =2
+
+        ProfileImage1 As image:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =Self.Width
+            HoverBorderColor: =
+            HoverFill: =
+            Image: =If(!IsBlank(ThisItem.Id), Office365Users.UserPhotoV2(ThisItem.Id))
+            OnSelect: =Select(Parent)
+            PressedBorderColor: =
+            PressedFill: =
+            Width: =UserBrowseGallery1.TemplateHeight - 30
+            X: =32
+            Y: =(UserBrowseGallery1.TemplateHeight / 2) - (Self.Height/2)
+            ZIndex: =3
+
+        Title2 As label:
+            BorderColor: =Self.Color
+            FocusedBorderThickness: =2
+            FontWeight: =FontWeight.Bold
+            Height: =51
+            OnSelect: =Select(Parent)
+            Size: =23
+            TabIndex: =0
+            Text: =ThisItem.DisplayName
+            VerticalAlign: =Middle
+            Width: =408
+            Wrap: =false
+            X: =ProfileImage1.X + ProfileImage1.Width + 16
+            Y: =1
+            ZIndex: =4
+
+        Subtitle1 As label:
+            FocusedBorderThickness: =2
+            Font: =Font.Lato
+            Height: =48
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: =ThisItem.UserPrincipalName
+            VerticalAlign: =Middle
+            Width: =Title2.Width
+            Wrap: =false
+            X: =Title2.X
+            Y: =96
+            ZIndex: =5
+
+        Separator1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =6
+
+        Label2 As label:
+            Font: =Font.Lato
+            Height: =43
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: =ThisItem.JobTitle
+            Width: =463
+            X: =177
+            Y: =53
+            ZIndex: =7
+
+    "'Header-AssetDetails_DetScn_1' As rectangle":
+        DisabledFill: ='Header-AssetDetails_DetScn_1'.Fill
+        Fill: |-
+            =ColorValue("#393537")
+        FocusedBorderColor: |-
+            =ColorValue("#393537")
+        Height: =99
+        HoverFill: |-
+            =ColorValue("#393537")
+        PressedFill: |-
+            =ColorValue("#393537")
+        Width: =640
+        ZIndex: =6
+
+    Button2 As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =4
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =64
+        HoverBorderColor: =ColorFade(Button2.BorderColor, 20%)
+        OnSelect: |-
+            =Set(
+                assignEmployee,
+                ""
+            );
+            Set(
+                clearEmployeeSearchBar,
+                true
+            );
+            Set(
+                clearEmployeeSearchBar,
+                false
+            );
+            Navigate(
+                EditScreen,
+                ScreenTransition.UnCoverRight
+            )
+        PressedBorderColor: =Button2.Fill
+        PressedColor: =Button2.Fill
+        PressedFill: =Button2.Color
+        Size: =24
+        Text: ="Unassign"
+        Width: =184
+        X: =23
+        Y: =19
+        ZIndex: =7
+
+    Icon1 As icon.CancelBadge:
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledFill: =Icon1.Fill
+        Height: =99
+        HoverBorderColor: =ColorFade(Icon1.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon1.Color, 20%)
+        HoverFill: =Icon1.Fill
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =Set(
+                clearEmployeeSearchBar,
+                true
+            );
+            Set(
+                clearEmployeeSearchBar,
+                false
+            );
+            Navigate(
+                EditScreen,
+                ScreenTransition.UnCoverRight
+            )
+        PressedBorderColor: =ColorFade(Icon1.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon1.Color, -20%)
+        PressedFill: =Icon1.Fill
+        Width: =85
+        X: =555
+        ZIndex: =8
+

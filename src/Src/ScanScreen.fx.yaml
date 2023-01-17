@@ -1,0 +1,159 @@
+"ScanScreen As screen.'phoneLayout_Success_ver3.0'":
+    Fill: |-
+        =ColorValue("#393537")
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |
+        =Select('Button-BarcodeScanner_ScaScn')
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Timer-NavEditScn_ScaScn' As timer":
+        BorderColor: =ColorFade('Timer-NavEditScn_ScaScn'.Fill, -15%)
+        Color: =RGBA(255, 255, 255, 0)
+        DisabledBorderColor: =ColorFade('Timer-NavEditScn_ScaScn'.BorderColor, 70%)
+        DisabledColor: =ColorFade('Timer-NavEditScn_ScaScn'.Fill, 90%)
+        DisabledFill: =ColorFade('Timer-NavEditScn_ScaScn'.Fill, 70%)
+        Duration: =1500
+        Fill: =RGBA(0,0,0,0)
+        Height: =70
+        HoverBorderColor: =ColorFade('Timer-NavEditScn_ScaScn'.BorderColor, 20%)
+        HoverColor: =RGBA(255, 255, 255, 0)
+        HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        OnSelect: |-
+            =UpdateContext({startTimer: true})
+        OnTimerEnd: |
+            =UpdateContext({restartTimer: true});
+            UpdateContext({startTimer: false});
+            //Enables Multi Scan
+            Select('Button-BarcodeScanner_ScaScn')
+        OnTimerStart: =
+        PressedBorderColor: ='Timer-NavEditScn_ScaScn'.Fill
+        PressedColor: ='Timer-NavEditScn_ScaScn'.Fill
+        PressedFill: ='Timer-NavEditScn_ScaScn'.Color
+        Reset: =restartTimer
+        Start: =startTimer
+        Width: =280
+        X: =40
+        Y: =40
+        ZIndex: =4
+
+    "'Button-BarcodeScanner_ScaScn' As barcodeScanner":
+        BarcodeType: =BarcodeType.Code128
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderThickness: =0
+        Color: =RGBA(0, 0, 0, 0)
+        DisabledBorderColor: =RGBA(166, 166, 166, 0)
+        DisabledColor: =RGBA(166, 166, 166, 0)
+        DisabledFill: =RGBA(244, 244, 244, 0)
+        Fill: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =0
+        Height: =70
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: =RGBA(0, 0, 0, 0)
+        HoverFill: =RGBA(0, 0, 0, 0)
+        OnCancel: |-
+            =Set([@toastScanSuccess], false);
+            Navigate(EditScreen);
+        OnScan: |
+            =//Pushes all input fields as a single record per scan to the Staging data table
+            //Fields can be modified before a new scan
+            Set(
+                [@assetTag],
+                'Button-BarcodeScanner_ScaScn'.Value
+            );
+            //If selected asset is not laptop upon entry, assigned employee is cleared out
+            If(
+                'Dropdown-ItmDesc_EdtScn'.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1B{Name}' = "Laptop",
+                assignEmployee,
+                Set(
+                    assignEmployee,
+                    ""
+                )
+            );
+            Collect(
+                Staging,
+                {
+                    'Staging-Transferring Library': 'Dropdown-TransLibCode_EdtScn'.Selected.Title,
+                    'Staging-Asset Tag #': 'Button-BarcodeScanner_ScaScn'.Value,
+                    'Staging-Item Description': 'Dropdown-ItmDesc_EdtScn'.Selected.'{Name}',
+                    'Staging-Date': 'DatePicker-Date_EdtScn'.SelectedDate,
+                    'Staging-Transfer To': 'Dropdown-TransToCode_EdtScn'.Selected.Title,
+                    'Staging-Signature': userName,
+                    'Staging-Employee': assignEmployee
+                }
+            );
+            /*
+            Patch(
+                Staging,
+                {
+                    'Staging-Transferring Library': 'Dropdown-TransLibCode_EdtScn'.Selected.Title,
+                    'Staging-Asset Tag #': 'Button-BarcodeScanner_ScaScn'.Value,
+                    'Staging-Item Description': 'Dropdown-ItmDesc_EdtScn'.Selected.'{Name}',
+                    'Staging-Date': 'DatePicker-Date_EdtScn'.SelectedDate,
+                    'Staging-Transfer To': 'Dropdown-TransToCode_EdtScn'.Selected.Title,
+                    'Staging-Signature': userName,
+                    'Staging-Employee': assignEmployee
+                }
+            );*/
+            //UpdateContext({toastScanSuccess: true});
+            Set(
+                [@toastScanSuccess],
+                true
+            );
+            Select('Timer-NavEditScn_ScaScn');
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =RGBA(0, 0, 0, 0)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        Size: =24
+        Text: ="Scan"
+        Width: =280
+        X: =180
+        Y: =974
+        ZIndex: =5
+
+    "'Group-SuccessIcon_ScaScn' As group":
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =6
+
+        "'icon-Circle_ScaScn' As circle.Circle":
+            DisabledFill: ='icon-Circle_ScaScn'.Fill
+            Fill: |-
+                =ColorValue("#4BBF6B")
+            Height: =200
+            HoverFill: ='icon-Circle_ScaScn'.Fill
+            PressedFill: ='icon-Circle_ScaScn'.Fill
+            Visible: =[@toastScanSuccess]
+            Width: =200
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =327
+            ZIndex: =1
+
+        "'icon-Check_ScaScn' As icon.Check":
+            Height: ='icon-Circle_ScaScn'.Height
+            Icon: =Icon.Check
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingTop
+            PaddingTop: =18
+            Visible: =[@toastScanSuccess]
+            Width: ='icon-Circle_ScaScn'.Width
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =327
+            ZIndex: =2
+
+        "'Label-AssetTag_ScaScn' As label":
+            Align: =Align.Center
+            Color: |-
+                =ColorValue("#4BBF6B")
+            FontWeight: =FontWeight.Semibold
+            Height: =125
+            Size: =43
+            Text: ='Button-BarcodeScanner_ScaScn'.Value
+            Visible: =[@toastScanSuccess]
+            Width: =Parent.Width * 0.75
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =541
+            ZIndex: =3
+

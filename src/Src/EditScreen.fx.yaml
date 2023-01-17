@@ -1,0 +1,1106 @@
+"EditScreen As screen.'phoneDetailEditLayout_ver3.0'":
+    BackgroundImage: =
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =
+    Orientation: =If(EditScreen.Width < EditScreen.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= EditScreen.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Timer-ToastItemAdded_EdtScn' As timer":
+        BorderColor: =ColorFade('Timer-ToastItemAdded_EdtScn'.Fill, -15%)
+        DisabledBorderColor: =ColorFade('Timer-ToastItemAdded_EdtScn'.BorderColor, 70%)
+        DisabledColor: =ColorFade('Timer-ToastItemAdded_EdtScn'.Fill, 90%)
+        DisabledFill: =ColorFade('Timer-ToastItemAdded_EdtScn'.Fill, 70%)
+        Duration: =1700
+        Height: =25
+        HoverBorderColor: =ColorFade('Timer-ToastItemAdded_EdtScn'.BorderColor, 20%)
+        OnTimerEnd: =Set(toastItemAdded, false)
+        PressedBorderColor: ='Timer-ToastItemAdded_EdtScn'.Fill
+        PressedColor: ='Timer-ToastItemAdded_EdtScn'.Fill
+        PressedFill: ='Timer-ToastItemAdded_EdtScn'.Color
+        Start: =toastItemAdded
+        Width: =31
+        ZIndex: =1
+
+    "'Form-Edit_EdtScn' As form":
+        AcceptsFocus: =false
+        DataSource: =[@'AssetTransferApp-master']
+        Height: =Parent.Height - 'Form-Edit_EdtScn'.Y
+        Item: =formItems
+        OnSuccess: =Back()
+        Width: =Parent.Width
+        Y: ='Header-Edit_EdtScn'.Height
+        ZIndex: =4
+
+        "'DataCard-Date_EdtScn' As typedDataCard.dateEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Date"
+            Default: =ThisItem.Date
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Date"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =152
+            Required: =true
+            Update: ='DataCardValue-Date_EdtScn'.SelectedDate
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            "'ErrorMessage-Date_EdtScn' As label":
+                AutoHeight: =true
+                FocusedBorderColor: ='ErrorMessage-Date_EdtScn'.BorderColor
+                Height: =10
+                HoverBorderColor: ='ErrorMessage-Date_EdtScn'.BorderColor
+                HoverColor: ='ErrorMessage-Date_EdtScn'.Color
+                HoverFill: ='ErrorMessage-Date_EdtScn'.Fill
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                PressedBorderColor: ='ErrorMessage-Date_EdtScn'.BorderColor
+                PressedColor: ='ErrorMessage-Date_EdtScn'.Color
+                PressedFill: ='ErrorMessage-Date_EdtScn'.Fill
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: ='DataCardValue-Date_EdtScn'.Y + 'DataCardValue-Date_EdtScn'.Height
+                ZIndex: =1
+
+            "'StarVisible-Date_EdtScn' As label":
+                Align: =Align.Center
+                Color: =RGBA(184, 0, 0, 1)
+                FocusedBorderColor: ='StarVisible-Date_EdtScn'.BorderColor
+                Height: ='DataCardKey-Date_EdtScn'.Height
+                HoverBorderColor: ='StarVisible-Date_EdtScn'.BorderColor
+                HoverColor: ='StarVisible-Date_EdtScn'.Color
+                HoverFill: ='StarVisible-Date_EdtScn'.Fill
+                PressedBorderColor: ='StarVisible-Date_EdtScn'.BorderColor
+                PressedColor: ='StarVisible-Date_EdtScn'.Color
+                PressedFill: ='StarVisible-Date_EdtScn'.Fill
+                Size: =21
+                Text: ="*"
+                Visible: |-
+                    =And(!Parent.Valid, Parent.DisplayMode=DisplayMode.Edit)
+                    //And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: ='DataCardKey-Date_EdtScn'.Y
+                ZIndex: =2
+
+            "'DataCardKey-Date_EdtScn' As label":
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderColor: ='DataCardKey-Date_EdtScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =48
+                HoverBorderColor: ='DataCardKey-Date_EdtScn'.BorderColor
+                HoverColor: ='DataCardKey-Date_EdtScn'.Color
+                HoverFill: ='DataCardKey-Date_EdtScn'.Fill
+                PressedBorderColor: ='DataCardKey-Date_EdtScn'.BorderColor
+                PressedColor: ='DataCardKey-Date_EdtScn'.Color
+                PressedFill: ='DataCardKey-Date_EdtScn'.Fill
+                Size: =28
+                Text: =Parent.DisplayName
+                Width: =580
+                Wrap: =false
+                X: =30
+                Y: =12
+                ZIndex: =3
+
+            "'DataCardValue-Date_EdtScn' As datepicker":
+                AccessibleLabel: ="Date Card Value"
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                FocusedBorderColor: ='DataCardValue-Date_EdtScn'.BorderColor
+                Height: =70
+                HoverBorderColor: ='DataCardValue-Date_EdtScn'.BorderColor
+                HoverFill: ='DataCardValue-Date_EdtScn'.Fill
+                InputTextPlaceholder: =Text(Date(2001,12,31), 'DataCardValue-Date_EdtScn'.Format, 'DataCardValue-Date_EdtScn'.Language)
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If('DataCardValue-Date_EdtScn'.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedBorderColor: ='DataCardValue-Date_EdtScn'.BorderColor
+                PressedFill: ='DataCardValue-Date_EdtScn'.Fill
+                Size: =24
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: ='DataCardKey-Date_EdtScn'.Y + 'DataCardKey-Date_EdtScn'.Height + 5
+                ZIndex: =4
+
+            "'DatePicker-Date_EdtScn' As datepicker":
+                AccessibleLabel: ="Date Picker"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                DefaultDate: |-
+                    =
+                    Today()
+                Fill: =RGBA(255,255,255,1)
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =110
+                HoverBorderColor: ='DatePicker-Date_EdtScn'.BorderColor
+                HoverFill: ='DatePicker-Date_EdtScn'.Fill
+                IconBackground: =RGBA(0,0,0,1)
+                InputTextPlaceholder: =Text(Date(2001,12,31), 'DatePicker-Date_EdtScn'.Format, 'DatePicker-Date_EdtScn'.Language)
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                PressedBorderColor: ='DatePicker-Date_EdtScn'.BorderColor
+                PressedFill: ='DatePicker-Date_EdtScn'.Fill
+                Size: =36
+                Width: =580
+                X: =30
+                Y: =60
+                ZIndex: =5
+
+        "'DataCard-TransLib_EdtScn' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Title"
+            Default: =ThisItem.'Transferring Library'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Transferring Library"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =152
+            MaxLength: =DataSourceInfo([@'AssetTransferApp-master'], DataSourceInfo.MaxLength, "Title")
+            Required: =true
+            Update: ='DataCardValue-TransLib_EdtScn'.Text
+            Visible: =true
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            "'ErrorMessage-TransLib_EdtScn' As label":
+                AutoHeight: =true
+                FocusedBorderColor: ='ErrorMessage-TransLib_EdtScn'.BorderColor
+                Height: =10
+                HoverBorderColor: ='ErrorMessage-TransLib_EdtScn'.BorderColor
+                HoverColor: ='ErrorMessage-TransLib_EdtScn'.Color
+                HoverFill: ='ErrorMessage-TransLib_EdtScn'.Fill
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                PressedBorderColor: ='ErrorMessage-TransLib_EdtScn'.BorderColor
+                PressedColor: ='ErrorMessage-TransLib_EdtScn'.Color
+                PressedFill: ='ErrorMessage-TransLib_EdtScn'.Fill
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: ='DataCardValue-TransLib_EdtScn'.Y + 'DataCardValue-TransLib_EdtScn'.Height
+                ZIndex: =1
+
+            "'StarVisible-TransLib_EdtScn' As label":
+                Align: =Align.Center
+                Color: =RGBA(184, 0, 0, 1)
+                FocusedBorderColor: ='StarVisible-TransLib_EdtScn'.BorderColor
+                Height: ='DataCardKey-TransLib_EdtScn'.Height
+                HoverBorderColor: ='StarVisible-TransLib_EdtScn'.BorderColor
+                HoverColor: ='StarVisible-TransLib_EdtScn'.Color
+                HoverFill: ='StarVisible-TransLib_EdtScn'.Fill
+                PressedBorderColor: ='StarVisible-TransLib_EdtScn'.BorderColor
+                PressedColor: ='StarVisible-TransLib_EdtScn'.Color
+                PressedFill: ='StarVisible-TransLib_EdtScn'.Fill
+                Size: =21
+                Text: ="*"
+                Visible: |-
+                    =And(!Parent.Valid, Parent.DisplayMode=DisplayMode.Edit)
+                    //And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =9
+                ZIndex: =2
+
+            "'DataCardKey-TransLib_EdtScn' As label":
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderColor: ='DataCardKey-TransLib_EdtScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =48
+                HoverBorderColor: ='DataCardKey-TransLib_EdtScn'.BorderColor
+                HoverColor: ='DataCardKey-TransLib_EdtScn'.Color
+                HoverFill: ='DataCardKey-TransLib_EdtScn'.Fill
+                PressedBorderColor: ='DataCardKey-TransLib_EdtScn'.BorderColor
+                PressedColor: ='DataCardKey-TransLib_EdtScn'.Color
+                PressedFill: ='DataCardKey-TransLib_EdtScn'.Fill
+                Size: =28
+                Text: =Parent.DisplayName
+                Width: =580
+                Wrap: =false
+                X: =32
+                Y: =12
+                ZIndex: =3
+
+            "'DataCardValue-TransLib_EdtScn' As text":
+                AccessibleLabel: ="Transferring Library Card Value"
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Blank()
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-TransLib_EdtScn'.BorderColor
+                Height: =64
+                MaxLength: =Parent.MaxLength
+                OnChange: =
+                PaddingLeft: =5
+                PressedBorderColor: ='DataCardValue-TransLib_EdtScn'.HoverBorderColor
+                PressedColor: ='DataCardValue-TransLib_EdtScn'.Color
+                PressedFill: ='DataCardValue-TransLib_EdtScn'.Fill
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Reset: =
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =232
+                X: =378
+                Y: =24
+                ZIndex: =4
+
+            "'Dropdown-TransLibCode_EdtScn' As dropdown":
+                AccessibleLabel: ="Transferring Library Code Dropdown"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: |-
+                    =ColorValue("#02adf1")
+                DisplayMode: |-
+                    =If(!IsMatch('Dropdown-TransLibLoc_EdtScn'.Selected.Result, "Please Select"),
+                        DisplayMode.Edit,
+                        DisplayMode.Disabled
+                    )
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =120
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                Items: =Filter(TransToLocalCache,Location = 'Dropdown-TransLibLoc_EdtScn'.Selected.Result)
+                PressedBorderColor: |-
+                    =ColorValue("#02adf1")
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: |-
+                    =ColorValue("#393537")
+                SelectionColor: |-
+                    =ColorValue("#02adf1")
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                Size: =25
+                Width: =222
+                X: =390
+                Y: =60
+                ZIndex: =6
+
+            "'Dropdown-TransLibLoc_EdtScn' As dropdown":
+                AccessibleLabel: ="Transferring Library Location Dropdown"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: |-
+                    =ColorValue("#02adf1")
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =120
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                Items: =Distinct(TransLibLocalCache, Location)
+                PressedBorderColor: |-
+                    =ColorValue("#02adf1")
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: |-
+                    =ColorValue("#393537")
+                SelectionColor: |-
+                    =ColorValue("#02adf1")
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                Size: =32
+                Width: =335
+                X: =30
+                Y: =60
+                ZIndex: =7
+
+        "'DataCard-TransferTo_EdtScn' As typedDataCard.comboBoxEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Transferto_x003a_"
+            Default: =
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Transfer to"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =152
+            Required: =false
+            Update: ='Dropdown-TransToCode_EdtScn'.Selected
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey1 As label:
+                Color: =RGBA(0, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =48
+                Size: =28
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =32
+                Y: =12
+                ZIndex: =1
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =
+                ZIndex: =2
+
+            StarVisible1 As label:
+                Align: =Align.Center
+                Color: =RGBA(184, 0, 0, 1)
+                Height: =DataCardKey1.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(!Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1.Y
+                ZIndex: =3
+
+            "'DataCardValue-TransferTo_EdtScn' As text":
+                AccessibleLabel: ="Transfer To Card Value"
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Blank()
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-TransferTo_EdtScn'.BorderColor
+                Height: =64
+                OnChange: =
+                PaddingLeft: =5
+                PressedBorderColor: ='DataCardValue-TransferTo_EdtScn'.HoverBorderColor
+                PressedColor: ='DataCardValue-TransferTo_EdtScn'.Color
+                PressedFill: ='DataCardValue-TransferTo_EdtScn'.Fill
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Reset: =
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =232
+                X: =378
+                Y: =24
+                ZIndex: =4
+
+            "'Dropdown-TransToCode_EdtScn' As dropdown":
+                AccessibleLabel: ="Transfer To Code Dropdown"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: |-
+                    =ColorValue("#02adf1")
+                DisplayMode: |-
+                    =If(!IsMatch('Dropdown-TransToLoc_EdtScn'.Selected.Result, "Please Select"),
+                        DisplayMode.Edit,
+                        DisplayMode.Disabled
+                    )
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =120
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                Items: =Filter(TransToLocalCache, Location = 'Dropdown-TransToLoc_EdtScn'.Selected.Result)
+                PressedBorderColor: |-
+                    =ColorValue("#02adf1")
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: |-
+                    =ColorValue("#393537")
+                SelectionColor: |-
+                    =ColorValue("#02adf1")
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                Size: =25
+                Width: =222
+                X: =390
+                Y: =60
+                ZIndex: =5
+
+            "'Dropdown-TransToLoc_EdtScn' As dropdown":
+                AccessibleLabel: ="Transfer To Location Dropdown"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: |-
+                    =ColorValue("#02adf1")
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =120
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                Items: =Distinct(TransToLocalCache, Location)
+                PressedBorderColor: |-
+                    =ColorValue("#02adf1")
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: |-
+                    =ColorValue("#393537")
+                SelectionColor: |-
+                    =ColorValue("#02adf1")
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                Size: =30
+                Width: =335
+                X: =30
+                Y: =60
+                ZIndex: =6
+
+        "'DataCard-ItmDesc_EdtScn' As typedDataCard.comboBoxEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="ItemDescription"
+            Default: =
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Item Description"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =152
+            Required: =true
+            Update: ='DataCardValue-ItmDesc_EdtScn'.Selected
+            Width: =640
+            WidthFit: =false
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            "'ErrorMessage-ItmDesc_EdtScn' As label":
+                AutoHeight: =true
+                FocusedBorderColor: ='ErrorMessage-ItmDesc_EdtScn'.BorderColor
+                Height: =10
+                HoverBorderColor: ='ErrorMessage-ItmDesc_EdtScn'.BorderColor
+                HoverColor: ='ErrorMessage-ItmDesc_EdtScn'.Color
+                HoverFill: ='ErrorMessage-ItmDesc_EdtScn'.Fill
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                PressedBorderColor: ='ErrorMessage-ItmDesc_EdtScn'.BorderColor
+                PressedColor: ='ErrorMessage-ItmDesc_EdtScn'.Color
+                PressedFill: ='ErrorMessage-ItmDesc_EdtScn'.Fill
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: ='DataCardValue-ItmDesc_EdtScn'.Y + 'DataCardValue-ItmDesc_EdtScn'.Height
+                ZIndex: =1
+
+            "'StarVisible-ItmDesc_EdtScn' As label":
+                Align: =Align.Center
+                Color: =RGBA(184, 0, 0, 1)
+                FocusedBorderColor: ='StarVisible-ItmDesc_EdtScn'.BorderColor
+                Height: =48
+                HoverBorderColor: ='StarVisible-ItmDesc_EdtScn'.BorderColor
+                HoverColor: ='StarVisible-ItmDesc_EdtScn'.Color
+                HoverFill: ='StarVisible-ItmDesc_EdtScn'.Fill
+                PressedBorderColor: ='StarVisible-ItmDesc_EdtScn'.BorderColor
+                PressedColor: ='StarVisible-ItmDesc_EdtScn'.Color
+                PressedFill: ='StarVisible-ItmDesc_EdtScn'.Fill
+                Size: =21
+                Text: ="*"
+                Visible: |-
+                    =And(!Parent.Valid, Parent.DisplayMode=DisplayMode.Edit)
+                    //And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: ='DataCardKey-ItmDesc_EdtScn'.Y
+                ZIndex: =2
+
+            "'DataCardKey-ItmDesc_EdtScn' As label":
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderColor: ='DataCardKey-ItmDesc_EdtScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =48
+                HoverBorderColor: ='DataCardKey-ItmDesc_EdtScn'.BorderColor
+                HoverColor: ='DataCardKey-ItmDesc_EdtScn'.Color
+                HoverFill: ='DataCardKey-ItmDesc_EdtScn'.Fill
+                PressedBorderColor: ='DataCardKey-ItmDesc_EdtScn'.BorderColor
+                PressedColor: ='DataCardKey-ItmDesc_EdtScn'.Color
+                PressedFill: ='DataCardKey-ItmDesc_EdtScn'.Fill
+                Size: =28
+                Text: =Parent.DisplayName
+                Width: =580
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =3
+
+            "'DataCardValue-ItmDesc_EdtScn' As combobox":
+                AccessibleLabel: ="Item Description Card Value"
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                DefaultSelectedItems: =
+                DisabledBorderColor: =RGBA(230, 230, 230, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-ItmDesc_EdtScn'.BorderColor
+                Height: =70
+                HoverBorderColor: =ColorFade('DataCardValue-ItmDesc_EdtScn'.BorderColor, 15%)
+                InputTextPlaceholder: ="Choose or fill-in"
+                IsSearchable: =false
+                MoreItemsButtonColor: ='DataCardValue-ItmDesc_EdtScn'.ChevronBackground
+                NoSelectionText: ="-Please Select-"
+                PaddingBottom: =0
+                PaddingLeft: =If('DataCardValue-ItmDesc_EdtScn'.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingTop: =0
+                PressedBorderColor: ='DataCardValue-ItmDesc_EdtScn'.HoverBorderColor
+                Reset: =clearInputs
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                SelectionTagColor: ='DataCardValue-ItmDesc_EdtScn'.HoverColor
+                SelectionTagFill: ='DataCardValue-ItmDesc_EdtScn'.HoverFill
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =226
+                X: =384
+                Y: =34
+                ZIndex: =4
+
+            "'Dropdown-ItmDesc_EdtScn' As dropdown":
+                AccessibleLabel: ="Item Description Dropdown"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                ChevronBackground: =RGBA(0, 0, 0, 1)
+                ChevronHoverBackground: |-
+                    =ColorValue("#02adf1")
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =120
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                Items: =SortByColumns(ItemDescLocalCache, "Number")
+                PressedBorderColor: |-
+                    =ColorValue("#02adf1")
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: |-
+                    =ColorValue("#393537")
+                SelectionColor: |-
+                    =ColorValue("#02adf1")
+                SelectionFill: =RGBA(0, 0, 0, 1)
+                Size: =32
+                Width: =If('Dropdown-ItmDesc_EdtScn'.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1B{Name}' = "Laptop", 415, 580)
+                X: =30
+                Y: =60
+                ZIndex: =6
+
+            Icon3 As icon.AddUser:
+                DisabledFill: =Icon3.Fill
+                Height: =120
+                HoverBorderColor: =ColorFade(Icon3.BorderColor, 20%)
+                HoverColor: =ColorFade(Icon3.Color, 20%)
+                HoverFill: =Icon3.Fill
+                Icon: =Icon.AddUser
+                OnSelect: =Navigate(EmployeeDirectoryScreen, ScreenTransition.Cover)
+                PressedBorderColor: =ColorFade(Icon3.BorderColor, -20%)
+                PressedColor: =ColorFade(Icon3.Color, -20%)
+                PressedFill: =Icon3.Fill
+                Visible: =If('Dropdown-ItmDesc_EdtScn'.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1B{Name}' = "Laptop", true, false)
+                Width: =If('Dropdown-ItmDesc_EdtScn'.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1B{Name}' = "Laptop", 135, false)
+                X: =475
+                Y: =60
+                ZIndex: =7
+
+        "'DataCard-AssetTag_EdtScn' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DataField: ="AssetTag_x0023_"
+            Default: =Blank()
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: |-
+                ="Asset Tag #"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =152
+            MaxLength: =DataSourceInfo([@'AssetTransferApp-master'], DataSourceInfo.MaxLength, "AssetTag_x0023_")
+            Required: =true
+            Update: ='Label-AssetTag_EdtScn'.Text
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            "'ErrorMessage-AssetTag_EdtScn' As label":
+                AutoHeight: =true
+                FocusedBorderColor: ='ErrorMessage-AssetTag_EdtScn'.BorderColor
+                Height: =10
+                HoverBorderColor: ='ErrorMessage-AssetTag_EdtScn'.BorderColor
+                HoverColor: ='ErrorMessage-AssetTag_EdtScn'.Color
+                HoverFill: ='ErrorMessage-AssetTag_EdtScn'.Fill
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                PressedBorderColor: ='ErrorMessage-AssetTag_EdtScn'.BorderColor
+                PressedColor: ='ErrorMessage-AssetTag_EdtScn'.Color
+                PressedFill: ='ErrorMessage-AssetTag_EdtScn'.Fill
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: ='DataCardValue-AssetTag_EdtScn'.Y + 'DataCardValue-AssetTag_EdtScn'.Height
+                ZIndex: =1
+
+            "'StarVisible-AssetTag_EdtScn' As label":
+                Align: =Align.Center
+                Color: =RGBA(184, 0, 0, 1)
+                FocusedBorderColor: ='StarVisible-AssetTag_EdtScn'.BorderColor
+                Height: ='DataCardKey-AssetTag_EdtScn'.Height
+                HoverBorderColor: ='StarVisible-AssetTag_EdtScn'.BorderColor
+                HoverColor: ='StarVisible-AssetTag_EdtScn'.Color
+                HoverFill: ='StarVisible-AssetTag_EdtScn'.Fill
+                PressedBorderColor: ='StarVisible-AssetTag_EdtScn'.BorderColor
+                PressedColor: ='StarVisible-AssetTag_EdtScn'.Color
+                PressedFill: ='StarVisible-AssetTag_EdtScn'.Fill
+                Size: =21
+                Text: ="*"
+                Visible: |-
+                    =And(!Parent.Valid, Parent.DisplayMode=DisplayMode.Edit)
+                    //And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: ='DataCardKey-AssetTag_EdtScn'.Y
+                ZIndex: =2
+
+            "'DataCardKey-AssetTag_EdtScn' As label":
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderColor: ='DataCardKey-AssetTag_EdtScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='DataCardKey-AssetTag_EdtScn'.BorderColor
+                HoverColor: ='DataCardKey-AssetTag_EdtScn'.Color
+                HoverFill: ='DataCardKey-AssetTag_EdtScn'.Fill
+                PressedBorderColor: ='DataCardKey-AssetTag_EdtScn'.BorderColor
+                PressedColor: ='DataCardKey-AssetTag_EdtScn'.Color
+                PressedFill: ='DataCardKey-AssetTag_EdtScn'.Fill
+                Size: =28
+                Text: =Parent.DisplayName
+                Width: =580
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =3
+
+            "'Label-AssetTag_EdtScn' As label":
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =2
+                Fill: =RGBA(255, 255, 255, 1)
+                FocusedBorderColor: ='Label-AssetTag_EdtScn'.BorderColor
+                Height: =70
+                HoverBorderColor: ='Label-AssetTag_EdtScn'.BorderColor
+                HoverColor: ='Label-AssetTag_EdtScn'.Color
+                HoverFill: ='Label-AssetTag_EdtScn'.Fill
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                PressedBorderColor: ='Label-AssetTag_EdtScn'.BorderColor
+                PressedColor: ='Label-AssetTag_EdtScn'.Color
+                PressedFill: ='Label-AssetTag_EdtScn'.Fill
+                Size: =21
+                Text: =[@assetTag]
+                Visible: =false
+                Width: =580
+                X: =30
+                Y: =60
+                ZIndex: =4
+
+            "'DataCardValue-AssetTag_EdtScn' As text":
+                AccessibleLabel: ="Asset Tag Data Card Value"
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =[@assetTag]
+                FocusedBorderColor: ='DataCardValue-AssetTag_EdtScn'.BorderColor
+                Format: =TextFormat.Number
+                Height: =110
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                PressedBorderColor: ='DataCardValue-AssetTag_EdtScn'.HoverBorderColor
+                PressedColor: ='DataCardValue-AssetTag_EdtScn'.Color
+                PressedFill: ='DataCardValue-AssetTag_EdtScn'.Fill
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Reset: =clearInputs
+                Size: =28
+                Tooltip: =Parent.DisplayName
+                VirtualKeyboardMode: =VirtualKeyboardMode.Numeric
+                Width: =396
+                X: =30
+                Y: =60
+                ZIndex: =5
+
+            "'Button-AddEntry_StgSc' As button":
+                BorderColor: |-
+                    =ColorValue("#02adf1")
+                DisplayMode: |-
+                    =//Disables scanning if required fields are blank
+                    If(
+                        !IsMatch('Dropdown-TransLibCode_EdtScn'.Selected.Title, "Please Select") && !IsMatch('Dropdown-ItmDesc_EdtScn'.Selected.'{Name}', "Please Select") && !IsMatch('Dropdown-TransToCode_EdtScn'.Selected.Title, "Please Select") && !IsBlank('DataCardValue-AssetTag_EdtScn'.Text),
+                        DisplayMode.Edit,
+                        DisplayMode.Disabled
+                    )
+                Fill: |-
+                    =ColorValue("#02adf1")
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =110
+                HoverBorderColor: |-
+                    =ColorValue("#02adf1")
+                HoverFill: |-
+                    =ColorValue("#02adf1")
+                OnSelect: |-
+                    =//If selected asset is not laptop upon entry, assigned employee is cleared out
+                    If('Dropdown-ItmDesc_EdtScn'.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1B{Name}' = "Laptop", assignEmployee, Set(assignEmployee, ""));
+                    
+                    Collect(
+                        Staging,
+                        {
+                            'Staging-Transferring Library': 'Dropdown-TransLibCode_EdtScn'.Selected.Title,
+                            'Staging-Asset Tag #': 'DataCardValue-AssetTag_EdtScn'.Text,
+                            'Staging-Item Description': 'Dropdown-ItmDesc_EdtScn'.Selected.'{Name}',
+                            'Staging-Date': 'DatePicker-Date_EdtScn'.SelectedDate,
+                            'Staging-Transfer To': 'Dropdown-TransToCode_EdtScn'.Selected.Title,
+                            'Staging-Signature': userName,
+                            'Staging-Employee': assignEmployee
+                        }
+                    );
+                    /*
+                    Patch(
+                        Staging,
+                        {
+                            'Staging-Transferring Library': 'Dropdown-TransLibCode_EdtScn'.Selected.Title,
+                            'Staging-Asset Tag #': 'DataCardValue-AssetTag_EdtScn'.Text,
+                            'Staging-Item Description': 'Dropdown-ItmDesc_EdtScn'.Selected.'{Name}',
+                            'Staging-Date': 'DatePicker-Date_EdtScn'.SelectedDate,
+                            'Staging-Transfer To': 'Dropdown-TransToCode_EdtScn'.Selected.Title,
+                            'Staging-Signature': userName,
+                            'Staging-Employee': assignEmployee
+                        }
+                    );*/
+                    Set(
+                        toastItemAdded,
+                        true
+                    );
+                    Select('Timer-ToastItemAdded_EdtScn')
+                PressedBorderColor: =RGBA(255, 255, 255, 1)
+                PressedColor: |-
+                    =ColorValue("#02adf1")
+                PressedFill: =RGBA(255, 255, 255, 1)
+                RadiusBottomLeft: =1
+                RadiusBottomRight: =1
+                RadiusTopLeft: =1
+                RadiusTopRight: =1
+                Size: =24
+                Text: ="Add Entry"
+                Width: =168
+                X: =442
+                Y: =60
+                ZIndex: =6
+
+        "'DataCard-Employee_EdtScn' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Test_x0020_Name"
+            Default: =ThisItem.Signature
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Assigned Employee"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =49
+            MaxLength: =DataSourceInfo([@'AssetTransferApp-master'], DataSourceInfo.MaxLength, "Test_x0020_Name")
+            Required: =false
+            Update: ='DataCardValue-Employee_EdtScn'.Text
+            Visible: |
+                =false
+                
+                //If('Dropdown-ItmDesc_EdtScn'.SelectedText.'{Name}' = "Laptop", true, false)
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            "'DataCardKey-Employee_EdtScn' As label":
+                AutoHeight: =true
+                Color: =RGBA(0, 0, 0, 1)
+                FocusedBorderColor: ='DataCardKey-Employee_EdtScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='DataCardKey-Employee_EdtScn'.BorderColor
+                HoverColor: ='DataCardKey-Employee_EdtScn'.Color
+                HoverFill: ='DataCardKey-Employee_EdtScn'.Fill
+                PressedBorderColor: ='DataCardKey-Employee_EdtScn'.BorderColor
+                PressedColor: ='DataCardKey-Employee_EdtScn'.Color
+                PressedFill: ='DataCardKey-Employee_EdtScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Visible: =false
+                Width: =580
+                Wrap: =false
+                X: =30
+                ZIndex: =3
+
+            "'DataCardValue-Employee_EdtScn' As text":
+                AccessibleLabel: ="Signature Data Card Value"
+                BorderColor: =RGBA(0, 0, 0, 1)
+                Default: =assignEmployee
+                DelayOutput: =true
+                FocusedBorderColor: |-
+                    =ColorValue("#02adf1")
+                Height: =70
+                HintText: ="Tap to assign"
+                HoverBorderColor: |-
+                    =ColorValue("#393537")
+                HoverColor: =RGBA(255, 255, 255, 1)
+                HoverFill: |-
+                    =ColorValue("#393537")
+                MaxLength: =Parent.MaxLength
+                OnSelect: =Navigate(EmployeeDirectoryScreen, ScreenTransition.Cover)
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                PressedBorderColor: ='DataCardValue-Employee_EdtScn'.HoverBorderColor
+                PressedColor: ='DataCardValue-Employee_EdtScn'.Color
+                PressedFill: ='DataCardValue-Employee_EdtScn'.Fill
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Reset: =true
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =580
+                X: =30
+                Y: =3
+                ZIndex: =4
+
+            Label1 As label:
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =2
+                Height: =70
+                OnSelect: =Navigate(EmployeeDirectoryScreen, ScreenTransition.Cover)
+                Size: =21
+                Text: |-
+                    =If(
+                        IsBlank(assignEmployee),
+                        "Tap to assign",
+                        assignEmployee
+                    )
+                Tooltip: ="Tap to assign"
+                Visible: =false
+                Width: =580
+                X: =30
+                Y: =13
+                ZIndex: =5
+
+    "'Title-AppName_EdtScn' As label":
+        Fill: =RGBA(58, 58, 58, 0)
+        FocusedBorderColor: ='Title-AppName_EdtScn'.BorderColor
+        Font: =Font.Georgia
+        Height: =88
+        HoverBorderColor: ='Title-AppName_EdtScn'.BorderColor
+        HoverColor: ='Title-AppName_EdtScn'.Color
+        HoverFill: ='Title-AppName_EdtScn'.Fill
+        PaddingLeft: =20
+        PressedBorderColor: ='Title-AppName_EdtScn'.BorderColor
+        PressedColor: ='Title-AppName_EdtScn'.Color
+        PressedFill: ='Title-AppName_EdtScn'.Fill
+        Size: =27
+        Text: ="Asset Transfer Form"
+        Width: =640
+        Wrap: =false
+        ZIndex: =6
+
+    "'Icon-Cancel_EdtScn' As icon.Cancel":
+        AccessibleLabel: ='Icon-Cancel_EdtScn'.Tooltip
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: |-
+            =ColorValue("#02adf1")
+        DisabledFill: ='Icon-Cancel_EdtScn'.Fill
+        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =0
+        Height: =88
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: |-
+            =ColorValue("#02adf1")
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =ResetForm('Form-Edit_EdtScn');
+            Navigate(
+                MainScreen,
+                ScreenTransition.Fade
+            )
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =0
+        Tooltip: ="Cancel item"
+        Width: =88
+        X: =552
+        ZIndex: =7
+
+    "'Group-DefaultLayouts_EdtScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =9
+
+        "'Header-Edit_EdtScn' As rectangle":
+            DisabledFill: ='Header-Edit_EdtScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            FocusedBorderColor: ='Header-Edit_EdtScn'.BorderColor
+            Height: =88
+            HoverFill: ='Header-Edit_EdtScn'.Fill
+            PressedFill: ='Header-Edit_EdtScn'.Fill
+            Width: =defaultLayouts.width
+            ZIndex: =2
+
+        "'Nav-Edit_EdtScn' As rectangle":
+            DisabledFill: ='Nav-Edit_EdtScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            Height: =88
+            HoverFill: ='Nav-Edit_EdtScn'.Fill
+            PressedFill: ='Nav-Edit_EdtScn'.Fill
+            Width: =defaultLayouts.width
+            Y: =1048
+            ZIndex: =3
+
+    "'Label-ToastItemAdded_EdtScn' As label":
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(127, 178, 57, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =48
+        Size: =21
+        Text: ="Item Added"
+        Visible: =toastItemAdded
+        Width: =181
+        X: =371
+        Y: =20
+        ZIndex: =10
+
+    "'Group-Buttons_EdtScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        "'Button-Confirm_EdtScn' As button":
+            BorderColor: |-
+                =ColorValue("#02adf1")
+            Fill: |-
+                =ColorValue("#02adf1")
+            FocusedBorderColor: ='Button-Confirm_EdtScn'.BorderColor
+            Height: =60
+            HoverBorderColor: =RGBA(0,0,0,0)
+            HoverFill: |-
+                =ColorValue("#02adf1")
+            OnSelect: |
+                =//Reset('Button-BarcodeScanner_EdtScn');
+                //UpdateContext({clearField:true});//
+                /*Patch(
+                    Staging,
+                    {'Staging-Asset Tag #': 'DataCardValue-AssetTag_EdtScn'.Text}
+                );*/
+                Set(
+                    toastItemAdded,
+                    false
+                );
+                Set(
+                    [@toastUploadComplete],
+                    false
+                );
+                Navigate(
+                    [@StagingScreen],
+                    ScreenTransition.None,
+                    {}
+                );
+            PressedBorderColor: |-
+                =ColorValue("#02adf1")
+            PressedColor: |-
+                =ColorValue("#02adf1")
+            PressedFill: =RGBA(255, 255, 255, 1)
+            Size: =24
+            Text: ="Confirm"
+            Width: =280
+            X: =22
+            Y: =1062
+            ZIndex: =5
+
+        "'Button-Scan_EdtScn' As button":
+            BorderColor: |-
+                =ColorValue("#02adf1")
+            DisplayMode: |-
+                =//Disables scanning if required fields are blank
+                If(
+                    !IsMatch('Dropdown-TransLibCode_EdtScn'.Selected.Title, "Please Select") && !IsMatch('Dropdown-ItmDesc_EdtScn'.Selected.'{Name}', "Please Select") && !IsMatch('Dropdown-TransToCode_EdtScn'.Selected.Title, "Please Select"),
+                    DisplayMode.Edit,
+                    DisplayMode.Disabled
+                )
+            Fill: |-
+                =ColorValue("#02adf1")
+            FocusedBorderColor: ='Button-Scan_EdtScn'.BorderColor
+            Height: =60
+            HoverBorderColor: =RGBA(0,0,0,0)
+            HoverFill: |-
+                =ColorValue("#02adf1")
+            OnSelect: =Navigate(ScanScreen)
+            PressedBorderColor: |-
+                =ColorValue("#02adf1")
+            PressedColor: |-
+                =ColorValue("#02adf1")
+            PressedFill: =RGBA(255, 255, 255, 1)
+            Size: =24
+            Text: ="Scan"
+            Width: =280
+            X: =339
+            Y: =1062
+            ZIndex: =8
+
