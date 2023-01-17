@@ -1,0 +1,8 @@
+"'7b8c38b8-5874-4767-a6ff-9e40b7073f5f' As TestSuite":
+    Description: ="Tests the flow of Navigating through the app to submit a single scan"
+    DisplayName: ="Submission Flow"
+
+    "'f0667f3b-fa91-4cc8-89b8-ecc2acdd71c7' As TestCase":
+        Description: =""
+        DisplayName: ="Submit Single Scan"
+

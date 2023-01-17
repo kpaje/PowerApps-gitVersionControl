@@ -1,0 +1,443 @@
+"BrowseScreen As screen.'phoneBrowseLayout_ver3.0'":
+    Fill: =RGBA(31, 32, 65,1)
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =
+    Orientation: =If(BrowseScreen.Width < BrowseScreen.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= BrowseScreen.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'TextSearchBox-Browse_BrwScn' As text":
+        AccessibleLabel: |-
+            ="Search by Asset tag #"
+        Align: =Align.Center
+        BorderColor: |-
+            =ColorValue("#393537")
+        BorderStyle: =BorderStyle.Solid
+        BorderThickness: =1
+        Clear: =true
+        Color: =RGBA(0, 18, 107, 1)
+        Default: =""
+        DelayOutput: =true
+        Fill: =RGBA(230, 230, 230, 1)
+        FocusedBorderColor: |-
+            =ColorValue("#02adf1")
+        Height: =104
+        HintText: ="Search Asset tag"
+        HoverFill: =RGBA(230, 230, 230, 1)
+        PaddingLeft: =5
+        PressedBorderColor: ='TextSearchBox-Browse_BrwScn'.HoverBorderColor
+        PressedColor: ='TextSearchBox-Browse_BrwScn'.Color
+        PressedFill: ='TextSearchBox-Browse_BrwScn'.Fill
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =30
+        Width: =640
+        Y: ='Header-Home_BrwScn'.Height
+        ZIndex: =3
+
+    "'Gallery-Browse_BrwScn' As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+        AccessibleLabel: ="SharePoint List Gallery"
+        BorderColor: |-
+            =ColorValue("#393537")
+        DisabledBorderColor: ='Gallery-Browse_BrwScn'.BorderColor
+        DisabledFill: ='Gallery-Browse_BrwScn'.Fill
+        Height: =857
+        HoverBorderColor: ='Gallery-Browse_BrwScn'.BorderColor
+        HoverFill: ='Gallery-Browse_BrwScn'.Fill
+        Items: |-
+            =//Records pulled limited to 650 for loading speed
+            SortByColumns(
+                Filter(
+                    LastN(
+                        [@'AssetTransferApp-master'],
+                        650
+                    ),
+                    StartsWith(
+                        'Asset Tag #',
+                        'TextSearchBox-Browse_BrwScn'.Text
+                    )
+                ),
+                "Created",
+                If(
+                    SortDescending,
+                    Ascending,
+                    Descending
+                )
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinnerColor: ='Gallery-Browse_BrwScn'.BorderColor
+        OnSelect: |
+            =Navigate(
+                DetailScreen,
+                ScreenTransition.Cover,
+                {selectedItem: 'Gallery-Browse_BrwScn'.Selected}
+            );
+        PressedBorderColor: ='Gallery-Browse_BrwScn'.BorderColor
+        PressedFill: ='Gallery-Browse_BrwScn'.Fill
+        ShowScrollbar: =false
+        TabIndex: =0
+        TemplatePadding: =0
+        TemplateSize: =Min(168, 'Gallery-Browse_BrwScn'.Height - 60)
+        Transition: =Transition.Pop
+        Width: =Parent.Width
+        Y: ='TextSearchBox-Browse_BrwScn'.Y + 'TextSearchBox-Browse_BrwScn'.Height
+        ZIndex: =5
+
+        "'Title-Date_BrwScn' As label":
+            Color: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: ='Title-Date_BrwScn'.BorderColor
+            HoverBorderColor: ='Title-Date_BrwScn'.BorderColor
+            HoverColor: ='Title-Date_BrwScn'.Color
+            HoverFill: ='Title-Date_BrwScn'.Fill
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            PressedBorderColor: ='Title-Date_BrwScn'.BorderColor
+            PressedColor: ='Title-Date_BrwScn'.Color
+            PressedFill: ='Title-Date_BrwScn'.Fill
+            Text: =ThisItem.Date
+            VerticalAlign: =VerticalAlign.Top
+            Width: =360
+            X: =208
+            Y: =24
+            ZIndex: =1
+
+        "'Subtitle-AssetTag_BrwScn' As label":
+            Color: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: ='Subtitle-AssetTag_BrwScn'.BorderColor
+            HoverBorderColor: ='Subtitle-AssetTag_BrwScn'.BorderColor
+            HoverColor: ='Subtitle-AssetTag_BrwScn'.Color
+            HoverFill: ='Subtitle-AssetTag_BrwScn'.Fill
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            PressedBorderColor: ='Subtitle-AssetTag_BrwScn'.BorderColor
+            PressedColor: ='Subtitle-AssetTag_BrwScn'.Color
+            PressedFill: ='Subtitle-AssetTag_BrwScn'.Fill
+            Size: =20
+            Text: |-
+                =ThisItem.'Asset Tag #'
+            VerticalAlign: =VerticalAlign.Top
+            Width: =360
+            X: =208
+            Y: =64
+            ZIndex: =2
+
+        "'Body-ItmDesc_BrwScn' As label":
+            Color: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: ='Body-ItmDesc_BrwScn'.BorderColor
+            HoverBorderColor: ='Body-ItmDesc_BrwScn'.BorderColor
+            HoverColor: ='Body-ItmDesc_BrwScn'.Color
+            HoverFill: ='Body-ItmDesc_BrwScn'.Fill
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            PressedBorderColor: ='Body-ItmDesc_BrwScn'.BorderColor
+            PressedColor: ='Body-ItmDesc_BrwScn'.Color
+            PressedFill: ='Body-ItmDesc_BrwScn'.Fill
+            Size: =20
+            Text: =ThisItem.'Item Description'
+            VerticalAlign: =VerticalAlign.Top
+            Width: =360
+            X: =208
+            Y: =104
+            ZIndex: =3
+
+        "'NextArrow-Browse_BrwScn' As icon.ChevronRight":
+            AccessibleLabel: ='NextArrow-Browse_BrwScn'.Tooltip
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='NextArrow-Browse_BrwScn'.Fill
+            FocusedBorderColor: ='NextArrow-Browse_BrwScn'.BorderColor
+            FocusedBorderThickness: =0
+            Height: =Parent.TemplateHeight/2
+            HoverBorderColor: =ColorFade('NextArrow-Browse_BrwScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('NextArrow-Browse_BrwScn'.Color, 20%)
+            HoverFill: ='NextArrow-Browse_BrwScn'.Fill
+            Icon: =Icon.ChevronRight
+            OnSelect: =Select(Parent);
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            PressedBorderColor: =ColorFade('NextArrow-Browse_BrwScn'.BorderColor, -20%)
+            PressedColor: =ColorFade('NextArrow-Browse_BrwScn'.Color, -20%)
+            PressedFill: ='NextArrow-Browse_BrwScn'.Fill
+            TabIndex: =0
+            Tooltip: ="View item details"
+            Width: =Parent.TemplateWidth /8
+            X: =Parent.TemplateWidth /1.2
+            Y: =Parent.TemplateHeight /4
+            ZIndex: =4
+
+        "'Separator-Browse_BrwScn' As rectangle":
+            DisabledFill: ='Separator-Browse_BrwScn'.Fill
+            FocusedBorderColor: ='Separator-Browse_BrwScn'.BorderColor
+            Height: =1
+            HoverFill: ='Separator-Browse_BrwScn'.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: ='Separator-Browse_BrwScn'.Fill
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        "'Icon-Browse_BrwScn' As icon.Save":
+            Color: |-
+                =Switch(
+                    'Body-ItmDesc_BrwScn'.Text,
+                    "Laptop",
+                    ColorValue("#FF9191"),
+                    "Tablet",
+                    ColorValue("#FFB283"),
+                    "Printer",
+                    ColorValue("#F2E296"),
+                    "Color Printer",
+                    ColorValue("#F2E296"),
+                    "B/W Printer",
+                    ColorValue("#F2E296"),
+                    "Desktop",
+                    ColorValue("#9BDDFF"),
+                    "TV",
+                    ColorValue("#92FFD5"),
+                    "Game Console",
+                    ColorValue("#C3FF8B"),
+                    "Projector",
+                    ColorValue("#9C8FFF"),
+                    "Payment Vending Device",
+                    ColorValue("#92FFD5"),
+                    "Plotter/Large Format",
+                    ColorValue("#F2E296"),
+                    "Tools",
+                    ColorValue("#C3FF8B"),
+                    "Router",
+                    ColorValue("#9C8FFF"),
+                    "SAN",
+                    ColorValue("#9C8FFF"),
+                    "Self Service Kiosk",
+                    ColorValue("#9BDDFF"),
+                    "Server",
+                    ColorValue("#92FFD5"),
+                    "Switch",
+                    ColorValue("#FF9191"),
+                    "ScanPro",
+                    ColorValue("#F2E296")
+                )
+            DisabledFill: ='Icon-Browse_BrwScn'.Fill
+            Height: =Parent.TemplateHeight
+            HoverBorderColor: =ColorFade('Icon-Browse_BrwScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-Browse_BrwScn'.Color, 20%)
+            HoverFill: ='Icon-Browse_BrwScn'.Fill
+            Icon: |-
+                =Switch(
+                    'Body-ItmDesc_BrwScn'.Text,
+                    "Laptop",
+                    Icon.Laptop,
+                    "Tablet",
+                    Icon.Tablet,
+                    "Printer",
+                    Icon.Printing3D,
+                    "Color Printer",
+                    Icon.Printing3D,
+                    "B/W Printer",
+                    Icon.Printing3D,
+                    "Desktop",
+                    Icon.ComputerDesktop,
+                    "TV",
+                    Icon.Devices,
+                    "Game Console",
+                    Icon.Controller,
+                    "Projector",
+                    Icon.CameraAperture,
+                    "Payment Vending Device",
+                    Icon.Waffle,
+                    "Plotter/Large Format",
+                    Icon.Printing3D,
+                    "Router",
+                    Icon.Database,
+                    "SAN",
+                    Icon.Database,
+                    "Self Service Kiosk",
+                    Icon.PhotosPictures,
+                    "Server",
+                    Icon.Database,
+                    "Switch",
+                    Icon.Database,
+                    "Tools",
+                    Icon.ToolsWrench,
+                    Icon.CameraAperture,
+                    "ScanPro"
+                )
+            OnSelect: =Select(Parent)
+            PressedBorderColor: =ColorFade('Icon-Browse_BrwScn'.BorderColor, -20%)
+            PressedColor: =ColorFade('Icon-Browse_BrwScn'.Color, -20%)
+            PressedFill: ='Icon-Browse_BrwScn'.Fill
+            Width: =Parent.TemplateWidth/5
+            X: =24
+            ZIndex: =6
+
+    "'Title-KCLSAssetTransfer_BrwScn' As label":
+        Fill: =RGBA(58, 58, 58, 0)
+        FocusedBorderColor: ='Title-KCLSAssetTransfer_BrwScn'.BorderColor
+        Font: =Font.Georgia
+        Height: =88
+        HoverBorderColor: ='Title-KCLSAssetTransfer_BrwScn'.BorderColor
+        HoverColor: ='Title-KCLSAssetTransfer_BrwScn'.Color
+        HoverFill: ='Title-KCLSAssetTransfer_BrwScn'.Fill
+        PaddingLeft: =20
+        PressedBorderColor: ='Title-KCLSAssetTransfer_BrwScn'.BorderColor
+        PressedColor: ='Title-KCLSAssetTransfer_BrwScn'.Color
+        PressedFill: ='Title-KCLSAssetTransfer_BrwScn'.Fill
+        Size: =27
+        Text: ="KCLS Asset Transfer"
+        Width: =640
+        Wrap: =false
+        ZIndex: =10
+
+    "'Image-Refresh-BrwScn' As image":
+        Height: =88
+        HoverBorderColor: =ColorFade('Image-Refresh-BrwScn'.BorderColor, 20%)
+        HoverFill: =ColorFade('Image-Refresh-BrwScn'.Fill, 20%)
+        Image: =refresh
+        PressedBorderColor: =ColorFade('Image-Refresh-BrwScn'.BorderColor, -20%)
+        PressedFill: =ColorFade('Image-Refresh-BrwScn'.Fill, -20%)
+        Visible: =showRefreshGif
+        Width: =157
+        X: =483
+        ZIndex: =11
+
+    "'Group-Icons_BrwScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        "'Icon-SortUpDown_BrwScn' As icon.ArrowsUpDown":
+            AccessibleLabel: ='Icon-SortUpDown_BrwScn'.Tooltip
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='Icon-SortUpDown_BrwScn'.Fill
+            FocusedBorderColor: ='Icon-SortUpDown_BrwScn'.BorderColor
+            Height: =85
+            HoverBorderColor: =ColorFade('Icon-SortUpDown_BrwScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-SortUpDown_BrwScn'.Color, 20%)
+            HoverFill: ='Icon-SortUpDown_BrwScn'.Fill
+            Icon: =Icon.Sort
+            OnSelect: |
+                =UpdateContext({SortDescending: !SortDescending})
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Tooltip: =If(SortDescending, "Sort list in reverse entry order", "Sort list by newest entry first")
+            Width: =320
+            X: =320
+            Y: =1048
+            ZIndex: =6
+
+        "'Icon-Refresh_BrwScn' As icon.Reload":
+            AccessibleLabel: ='Icon-Refresh_BrwScn'.Tooltip
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='Icon-Refresh_BrwScn'.Fill
+            FocusedBorderColor: ='Icon-Refresh_BrwScn'.BorderColor
+            Height: =85
+            HoverBorderColor: =ColorFade('Icon-Refresh_BrwScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-Refresh_BrwScn'.Color, 20%)
+            HoverFill: ='Icon-Refresh_BrwScn'.Fill
+            Icon: =Icon.Reload
+            OnSelect: |-
+                =Set([@showRefreshGif], true);
+                Refresh([@'AssetTransferApp-master']);
+                Set([@showRefreshGif], false);
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Tooltip: ="Refresh list"
+            Width: =320
+            Y: =1049
+            ZIndex: =7
+
+    "'Group-DefaultLayouts_BrwScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        "'Header-Home_BrwScn' As rectangle":
+            DisabledFill: ='Header-Home_BrwScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            FocusedBorderColor: ='Header-Home_BrwScn'.BorderColor
+            Height: =88
+            HoverFill: ='Header-Home_BrwScn'.Fill
+            PressedFill: ='Header-Home_BrwScn'.Fill
+            Width: =defaultLayouts.width
+            ZIndex: =1
+
+        "'Nav-Browse_BrwScn' As rectangle":
+            BorderColor: |-
+                =ColorValue("#393537")
+            DisabledFill: ='Nav-Browse_BrwScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            Height: =88
+            HoverFill: ='Nav-Browse_BrwScn'.Fill
+            PressedFill: ='Nav-Browse_BrwScn'.Fill
+            Width: =defaultLayouts.width
+            Y: =1048
+            ZIndex: =2
+
+    "'Icon-Cancel_EdtScn_2' As icon.Cancel":
+        AccessibleLabel: ='Icon-Cancel_EdtScn_2'.Tooltip
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: |-
+            =ColorValue("#02adf1")
+        DisabledFill: ='Icon-Cancel_EdtScn_2'.Fill
+        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =0
+        Height: =88
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: |-
+            =ColorValue("#02adf1")
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =ResetForm('Form-Edit_EdtScn');
+            Navigate(
+                MainScreen,
+                ScreenTransition.Fade
+            )
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =0
+        Tooltip: ="Cancel item"
+        Width: =88
+        X: =552
+        ZIndex: =12
+

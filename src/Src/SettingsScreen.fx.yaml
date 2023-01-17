@@ -1,0 +1,129 @@
+SettingsScreen As screen:
+    Fill: =RGBA(31, 32, 65,1)
+
+    "'Title-KCLSAssetTransfer_BrwScn_1' As label":
+        Fill: =RGBA(58, 58, 58, 0)
+        FocusedBorderColor: ='Title-KCLSAssetTransfer_BrwScn_1'.BorderColor
+        Font: =Font.Georgia
+        Height: =88
+        HoverBorderColor: ='Title-KCLSAssetTransfer_BrwScn_1'.BorderColor
+        HoverColor: ='Title-KCLSAssetTransfer_BrwScn_1'.Color
+        HoverFill: ='Title-KCLSAssetTransfer_BrwScn_1'.Fill
+        PaddingLeft: =20
+        PressedBorderColor: ='Title-KCLSAssetTransfer_BrwScn_1'.BorderColor
+        PressedColor: ='Title-KCLSAssetTransfer_BrwScn_1'.Color
+        PressedFill: ='Title-KCLSAssetTransfer_BrwScn_1'.Fill
+        Size: =27
+        Text: ="Settings"
+        Width: =640
+        Wrap: =false
+        ZIndex: =3
+
+    "'Group-DefaultLayouts_BrwScn_1' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =3
+
+        "'Header-Home_BrwScn_1' As rectangle":
+            DisabledFill: ='Header-Home_BrwScn_1'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            FocusedBorderColor: ='Header-Home_BrwScn_1'.BorderColor
+            Height: =88
+            HoverFill: ='Header-Home_BrwScn_1'.Fill
+            PressedFill: ='Header-Home_BrwScn_1'.Fill
+            Width: =640
+            ZIndex: =1
+
+        "'Nav-Browse_BrwScn_1' As rectangle":
+            BorderColor: |-
+                =ColorValue("#393537")
+            DisabledFill: ='Nav-Browse_BrwScn_1'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            Height: =88
+            HoverFill: ='Nav-Browse_BrwScn_1'.Fill
+            PressedFill: ='Nav-Browse_BrwScn_1'.Fill
+            Width: =640
+            Y: =1048
+            ZIndex: =2
+
+    "'Icon-Cancel_EdtScn_3' As icon.Cancel":
+        AccessibleLabel: ='Icon-Cancel_EdtScn_3'.Tooltip
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: |-
+            =ColorValue("#02adf1")
+        DisabledFill: ='Icon-Cancel_EdtScn_3'.Fill
+        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =0
+        Height: =88
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: |-
+            =ColorValue("#02adf1")
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =Navigate(
+                MainScreen,
+                ScreenTransition.Fade
+            )
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =0
+        Tooltip: ="Cancel item"
+        Width: =88
+        X: =552
+        ZIndex: =4
+
+    "'Group-Sound_SetScn' As group":
+        Height: =5
+        Width: =5
+        X: =-30
+        Y: =-111
+        ZIndex: =7
+
+        "'Toggle-Sound_SetScn' As toggleSwitch":
+            Color: =RGBA(255, 255, 255, 1)
+            Default: =ToastSound
+            FalseFill: =RGBA(204,92,92, 1)
+            FalseHoverFill: =ColorFade('Toggle-Sound_SetScn'.FalseFill, 15%)
+            FalseText: ="FALSE"
+            Height: =85
+            HoverBorderColor: =ColorFade('Toggle-Sound_SetScn'.BorderColor, 15%)
+            OnChange: =
+            OnCheck: |-
+                =Set(ToastSound, true);
+                ClearCollect(MyCache, {ToastSound: true});
+                SaveData(MyCache,"UserSettings")
+            OnUncheck: |-
+                =Set(ToastSound, false);
+                ClearCollect(MyCache, {ToastSound: false});
+                SaveData( MyCache, "UserSettings" )
+            PressedBorderColor: =ColorFade('Toggle-Sound_SetScn'.BorderColor, -15%)
+            ShowLabel: =false
+            Size: =21
+            TrueFill: =RGBA(17, 157, 164, 1)
+            TrueHoverFill: =ColorFade('Toggle-Sound_SetScn'.TrueFill, 15%)
+            TrueText: ="TRUE"
+            Width: =250
+            X: =302
+            Y: =167
+            ZIndex: =5
+
+        "'Label-Sound_SetScn' As label":
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =92
+            Size: =30
+            Text: ="Sound"
+            Width: =231
+            X: =60
+            Y: =163
+            ZIndex: =6
+

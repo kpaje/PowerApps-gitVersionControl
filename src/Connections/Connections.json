@@ -1,0 +1,89 @@
+{
+  "13d9bbff-f55f-4871-b6d5-814fec44c190": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/juanq/gateway/greyhound/3000.150.11/1.0.1613.3116/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://kclsorg.sharepoint.com/teams/ITSInternal": {
+        "dataSources": {
+          "AssetTransferApp-master": {
+            "tableName": "f8f28364-7843-47e4-a54d-12a2a883d3e0"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "AssetTransferApp-master",
+      "Transferring To",
+      "Transferring Library data",
+      "Asset Type"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "13d9bbff-f55f-4871-b6d5-814fec44c190"
+  },
+  "44f90fd2-0c32-4e91-9f5b-c6012f579ec8": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1611/1.0.1611.3104/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "44f90fd2-0c32-4e91-9f5b-c6012f579ec8"
+  },
+  "9c52bf7c-a680-4246-a773-eea08712d1eb": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/juanq/gateway/greyhound/3000.150.11/1.0.1613.3116/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://kclsorg.sharepoint.com/teams/ITSInternal": {
+        "dataSources": {
+          "Asset Type": {
+            "tableName": "2c476a88-1eb7-456a-aac8-bef8235adc81"
+          },
+          "Transferring Library data": {
+            "tableName": "fea9ddd9-e802-4e40-8eb0-c14947a762bb"
+          },
+          "Transferring To": {
+            "tableName": "58949d9e-c7ec-45be-9ac8-66f1ea4101d1"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Transferring Library data",
+      "Transferring To",
+      "Asset Type"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "9c52bf7c-a680-4246-a773-eea08712d1eb"
+  }
+}

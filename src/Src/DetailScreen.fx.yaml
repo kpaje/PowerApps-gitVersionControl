@@ -1,0 +1,639 @@
+"DetailScreen As screen.'phoneDetailViewLayout_ver3.0'":
+    Fill: =RGBA(31, 32, 65,1)
+    Height: =Max(App.Height, App.DesignHeight)
+    LoadingSpinnerColor: |-
+        =ColorValue("#cc5c5b")
+    OnVisible: |-
+        =Set([@showDeleteItemGif], false);
+        Set([@toastRecordDeleted], false)
+    Orientation: =If(DetailScreen.Width < DetailScreen.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= DetailScreen.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Form-Detail_DetScn' As formViewer":
+        AcceptsFocus: =false
+        BorderColor: =RGBA(237, 237, 237, 1)
+        BorderThickness: =1
+        DataSource: =[@'AssetTransferApp-master']
+        Height: =960
+        Item: =selectedItem
+        Width: =Parent.Width
+        Y: ='Header-AssetDetails_DetScn'.Y + 'Header-AssetDetails_DetScn'.Height
+        ZIndex: =6
+
+        "'DataCard-TransLib_DetScn' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="Title"
+            Default: =ThisItem.'Transferring Library'
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: ="Transferring Library"
+            Fill: =RGBA(0,0,0,0)
+            Height: =120
+            Required: =true
+            Width: =639
+            WidthFit: =true
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            "'DataCardKey-TransLib_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(31, 32, 65,1)
+                FocusedBorderColor: ='DataCardKey-TransLib_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-TransLib_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-TransLib_DetScn'.Color
+                HoverFill: ='DataCardKey-TransLib_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-TransLib_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-TransLib_DetScn'.Color
+                PressedFill: ='DataCardKey-TransLib_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =1
+
+            "'DataCardValue-TransLib_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(31, 32, 65,1)
+                FocusedBorderColor: ='DataCardValue-TransLib_DetScn'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-TransLib_DetScn'.BorderColor
+                HoverColor: ='DataCardValue-TransLib_DetScn'.Color
+                HoverFill: ='DataCardValue-TransLib_DetScn'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-TransLib_DetScn'.BorderColor
+                PressedColor: ='DataCardValue-TransLib_DetScn'.Color
+                PressedFill: ='DataCardValue-TransLib_DetScn'.Fill
+                Size: =21
+                Text: =Parent.Default
+                Width: =313
+                X: =325
+                ZIndex: =2
+
+        "'DataCard-AssetTag_DetScn' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="AssetTag_x0023_"
+            Default: |-
+                =ThisItem.'Asset Tag #'
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: |-
+                ="Asset Tag #"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =120
+            Required: =true
+            Width: =638
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            "'DataCardKey-AssetTag_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(31, 32, 65,1)
+                FocusedBorderColor: ='DataCardKey-AssetTag_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-AssetTag_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-AssetTag_DetScn'.Color
+                HoverFill: ='DataCardKey-AssetTag_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-AssetTag_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-AssetTag_DetScn'.Color
+                PressedFill: ='DataCardKey-AssetTag_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =1
+
+            "'DataCardValue-AssetTag_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-AssetTag_DetScn'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-AssetTag_DetScn'.BorderColor
+                HoverColor: ='DataCardValue-AssetTag_DetScn'.Color
+                HoverFill: ='DataCardValue-AssetTag_DetScn'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-AssetTag_DetScn'.BorderColor
+                PressedColor: ='DataCardValue-AssetTag_DetScn'.Color
+                PressedFill: ='DataCardValue-AssetTag_DetScn'.Fill
+                Size: =21
+                Text: =Parent.Default
+                Width: =313
+                X: =325
+                ZIndex: =2
+
+        "'DataCard-ItmDesc_DetScn' As typedDataCard.comboBoxViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="ItemDescription"
+            Default: =Blank()
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: ="Item Description"
+            Fill: =RGBA(0,0,0,0)
+            Height: =120
+            Required: =true
+            Update: =
+            Width: =638
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            "'DataCardKey-ItmDesc_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(31, 32, 65,1)
+                FocusedBorderColor: ='DataCardKey-ItmDesc_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-ItmDesc_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-ItmDesc_DetScn'.Color
+                HoverFill: ='DataCardKey-ItmDesc_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-ItmDesc_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-ItmDesc_DetScn'.Color
+                PressedFill: ='DataCardKey-ItmDesc_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =3
+
+            "'DataCardValue-ItmDesc_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-ItmDesc_DetScn'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-ItmDesc_DetScn'.BorderColor
+                HoverColor: ='DataCardValue-ItmDesc_DetScn'.Color
+                HoverFill: ='DataCardValue-ItmDesc_DetScn'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-ItmDesc_DetScn'.BorderColor
+                PressedColor: ='DataCardValue-ItmDesc_DetScn'.Color
+                PressedFill: ='DataCardValue-ItmDesc_DetScn'.Fill
+                Size: =21
+                Text: =ThisItem.'Item Description'
+                Width: =313
+                X: =325
+                ZIndex: =5
+
+        "'DataCard-Date_DetScn' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="Date"
+            Default: =ThisItem.Date
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: ="Date"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =120
+            Required: =true
+            Width: =639
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            "'DataCardKey-Date_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                FocusedBorderColor: ='DataCardKey-Date_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-Date_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-Date_DetScn'.Color
+                HoverFill: ='DataCardKey-Date_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-Date_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-Date_DetScn'.Color
+                PressedFill: ='DataCardKey-Date_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =1
+
+            "'DataCardValue-Date_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-Date_DetScn'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-Date_DetScn'.BorderColor
+                HoverColor: ='DataCardValue-Date_DetScn'.Color
+                HoverFill: ='DataCardValue-Date_DetScn'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-Date_DetScn'.BorderColor
+                PressedColor: ='DataCardValue-Date_DetScn'.Color
+                PressedFill: ='DataCardValue-Date_DetScn'.Fill
+                Size: =21
+                Text: =Parent.Default
+                Width: =313
+                X: =326
+                ZIndex: =2
+
+        "'DataCard-TransferTo_DetScn' As typedDataCard.comboBoxViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="Transferto_x003a_"
+            Default: =Blank()
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: |-
+                ="Transfer to:"
+            Fill: =RGBA(0,0,0,0)
+            Height: =120
+            Required: =true
+            Update: =
+            Width: =638
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            "'DataCardKey-TransferTo_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                FocusedBorderColor: ='DataCardKey-TransferTo_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-TransferTo_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-TransferTo_DetScn'.Color
+                HoverFill: ='DataCardKey-TransferTo_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-TransferTo_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-TransferTo_DetScn'.Color
+                PressedFill: ='DataCardKey-TransferTo_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =3
+
+            "'DataCardValue-TransLib_DetScn_1' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-TransLib_DetScn_1'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-TransLib_DetScn_1'.BorderColor
+                HoverColor: ='DataCardValue-TransLib_DetScn_1'.Color
+                HoverFill: ='DataCardValue-TransLib_DetScn_1'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-TransLib_DetScn_1'.BorderColor
+                PressedColor: ='DataCardValue-TransLib_DetScn_1'.Color
+                PressedFill: ='DataCardValue-TransLib_DetScn_1'.Fill
+                Size: =21
+                Text: |-
+                    =ThisItem.'Transfer to:'
+                Width: =313
+                X: =325
+                ZIndex: =6
+
+        "'DataCard-Signature_DetScn' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =1
+            DataField: ="Test_x0020_Name"
+            Default: =ThisItem.Signature
+            DisplayMode: =DisplayMode.Edit
+            DisplayName: ="Signature"
+            Fill: =RGBA(0,0,0,0)
+            Height: =120
+            Required: =false
+            Width: =639
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            "'DataCardKey-Signature_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                FocusedBorderColor: ='DataCardKey-Signature_DetScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =120
+                HoverBorderColor: ='DataCardKey-Signature_DetScn'.BorderColor
+                HoverColor: ='DataCardKey-Signature_DetScn'.Color
+                HoverFill: ='DataCardKey-Signature_DetScn'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-Signature_DetScn'.BorderColor
+                PressedColor: ='DataCardKey-Signature_DetScn'.Color
+                PressedFill: ='DataCardKey-Signature_DetScn'.Fill
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =325
+                Wrap: =false
+                ZIndex: =1
+
+            "'DataCardValue-Signature_DetScn' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-Signature_DetScn'.BorderColor
+                Height: =120
+                HoverBorderColor: ='DataCardValue-Signature_DetScn'.BorderColor
+                HoverColor: ='DataCardValue-Signature_DetScn'.Color
+                HoverFill: ='DataCardValue-Signature_DetScn'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-Signature_DetScn'.BorderColor
+                PressedColor: ='DataCardValue-Signature_DetScn'.Color
+                PressedFill: ='DataCardValue-Signature_DetScn'.Fill
+                Size: =21
+                Text: =Parent.Default
+                Width: =313
+                X: =325
+                ZIndex: =2
+
+        "'Email Assigned to_DataCard3' As typedDataCard.textualViewCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Email Assigned to"
+            Default: =If(IsBlank(ThisItem.'Email Assigned to'), "N/A", ThisItem.'Email Assigned to')
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'AssetTransferApp-master'],DataSourceInfo.DisplayName,"EnteredInCireson")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =85
+            Required: =false
+            Width: =640
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            DataCardKey4 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Visible: =false
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'DataCardKey-Signature_DetScn_1' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                FocusedBorderColor: ='DataCardKey-Signature_DetScn_1'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =180
+                HoverBorderColor: ='DataCardKey-Signature_DetScn_1'.BorderColor
+                HoverColor: ='DataCardKey-Signature_DetScn_1'.Color
+                HoverFill: ='DataCardKey-Signature_DetScn_1'.Fill
+                PaddingLeft: =40
+                PressedBorderColor: ='DataCardKey-Signature_DetScn_1'.BorderColor
+                PressedColor: ='DataCardKey-Signature_DetScn_1'.Color
+                PressedFill: ='DataCardKey-Signature_DetScn_1'.Fill
+                Size: =21
+                Text: ="Assigned Employee"
+                Width: =352
+                Wrap: =false
+                Y: =10
+                ZIndex: =3
+
+            "'DataCardValue-Signature_DetScn_1' As label":
+                Color: =RGBA(255, 255, 255, 1)
+                DisplayMode: =Parent.DisplayMode
+                FocusedBorderColor: ='DataCardValue-Signature_DetScn_1'.BorderColor
+                Height: =180
+                HoverBorderColor: ='DataCardValue-Signature_DetScn_1'.BorderColor
+                HoverColor: ='DataCardValue-Signature_DetScn_1'.Color
+                HoverFill: ='DataCardValue-Signature_DetScn_1'.Fill
+                PaddingLeft: =50
+                PaddingRight: =40
+                PressedBorderColor: ='DataCardValue-Signature_DetScn_1'.BorderColor
+                PressedColor: ='DataCardValue-Signature_DetScn_1'.Color
+                PressedFill: ='DataCardValue-Signature_DetScn_1'.Fill
+                Size: =21
+                Text: =Parent.Default
+                Width: =313
+                X: =327
+                Y: =10
+                ZIndex: =4
+
+    "'Title-AssetDetails_DetScn' As label":
+        FocusedBorderColor: ='Title-AssetDetails_DetScn'.BorderColor
+        Font: =Font.Georgia
+        Height: =88
+        HoverBorderColor: ='Title-AssetDetails_DetScn'.BorderColor
+        HoverColor: ='Title-AssetDetails_DetScn'.Color
+        HoverFill: ='Title-AssetDetails_DetScn'.Fill
+        PaddingLeft: =20
+        PressedBorderColor: ='Title-AssetDetails_DetScn'.BorderColor
+        PressedColor: ='Title-AssetDetails_DetScn'.Color
+        PressedFill: ='Title-AssetDetails_DetScn'.Fill
+        Size: =27
+        Text: ="Asset Details"
+        Width: =640
+        Wrap: =false
+        ZIndex: =7
+
+    "'Rectangle-BeanEater_DetScn' As rectangle":
+        BorderColor: =RGBA(153, 153, 153, 0.48)
+        DisabledFill: ='Rectangle-BeanEater_DetScn'.Fill
+        Fill: =RGBA(153, 153, 153, 0.48)
+        Height: =962
+        HoverFill: ='Rectangle-BeanEater_DetScn'.Fill
+        PressedFill: ='Rectangle-BeanEater_DetScn'.Fill
+        Visible: =[@showDeleteItemGif]
+        Width: =640
+        Y: =88
+        ZIndex: =8
+
+    "'Group-Icons_DetScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =8
+
+        "'Icon-Backarrow_DetScn' As icon.ChevronLeft":
+            AccessibleLabel: ='Icon-Backarrow_DetScn'.Tooltip
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='Icon-Backarrow_DetScn'.Fill
+            FocusedBorderColor: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =85
+            HoverBorderColor: =ColorFade('Icon-Backarrow_DetScn'.BorderColor, 20%)
+            HoverColor: |-
+                =ColorValue("#02adf1")
+            HoverFill: ='Icon-Backarrow_DetScn'.Fill
+            Icon: =Icon.ChevronLeft
+            OnSelect: =Navigate(BrowseScreen, ScreenTransition.UnCoverRight)
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Tooltip: ="Back to list"
+            Width: =213
+            Y: =1050
+            ZIndex: =3
+
+        "'Icon-Edit_DetScn' As icon.Edit":
+            AccessibleLabel: ='Icon-Edit_DetScn'.Tooltip
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='Icon-Edit_DetScn'.Fill
+            DisplayMode: =If(DataSourceInfo([@'AssetTransferApp-master'], DataSourceInfo.EditPermission), DisplayMode.Edit, DisplayMode.Disabled)
+            FocusedBorderColor: ='Icon-Edit_DetScn'.BorderColor
+            Height: =85
+            HoverBorderColor: =ColorFade('Icon-Edit_DetScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-Edit_DetScn'.Color, 20%)
+            HoverFill: ='Icon-Edit_DetScn'.Fill
+            Icon: =Icon.Edit
+            OnSelect: |+
+                =EditForm('Form-Edit_EdtScn');Navigate(EditScreen, ScreenTransition.None)
+                
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            PressedBorderColor: =ColorFade('Icon-Edit_DetScn'.BorderColor, -20%)
+            PressedColor: =ColorFade('Icon-Edit_DetScn'.Color, -20%)
+            TabIndex: =0
+            Tooltip: ="Edit this item"
+            Visible: =false
+            Width: =111
+            X: =529
+            Y: =1049
+            ZIndex: =4
+
+        "'Icon-Delete_DetScn' As icon.Trash":
+            AccessibleLabel: ='Icon-Delete_DetScn'.Tooltip
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: |-
+                =ColorValue("#02adf1")
+            DisabledFill: ='Icon-Delete_DetScn'.Fill
+            DisplayMode: |-
+                =DisplayMode.Edit
+                /*If(!IsBlank('Gallery-Browse_BrwScn'.Selected) && DataSourceInfo([@'AssetTransferApp-master'], DataSourceInfo.DeletePermission), DisplayMode.Edit, DisplayMode.Disabled)*/
+            FocusedBorderColor: =RGBA(0, 0, 0, 0)
+            FocusedBorderThickness: =0
+            Height: =85
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: |-
+                =ColorValue("#02adf1")
+            HoverFill: =RGBA(0, 0, 0, 0)
+            Icon: =Icon.Trash
+            OnSelect: |
+                =Set([@showDeleteItemGif], true);
+                Set([@toastRecordDeleted], true);
+                Remove(
+                    [@'AssetTransferApp-master'],
+                    'Gallery-Browse_BrwScn'.Selected
+                );
+                If (
+                    IsEmpty(
+                        Errors(
+                            [@'AssetTransferApp-master'],
+                            'Gallery-Browse_BrwScn'.Selected
+                        )
+                    ),
+                    Back()
+                );
+            PaddingBottom: =20
+            PaddingLeft: =20
+            PaddingRight: =20
+            PaddingTop: =20
+            PressedBorderColor: =RGBA(0, 0, 0, 0)
+            PressedColor: =RGBA(255,255,255,1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            TabIndex: =0
+            Tooltip: ="Delete this item"
+            Width: =213
+            X: =206
+            Y: =1051
+            ZIndex: =5
+
+    "'Group-DefaultLayouts_DetScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =8
+
+        "'Header-AssetDetails_DetScn' As rectangle":
+            DisabledFill: ='Header-AssetDetails_DetScn'.Fill
+            Fill: |-
+                =If(
+                    toastRecordDeleted = true,
+                    ColorValue("#cc5c5b"),
+                    ColorValue("#393537")
+                )
+            FocusedBorderColor: ='Header-AssetDetails_DetScn'.BorderColor
+            Height: =88
+            HoverFill: ='Header-AssetDetails_DetScn'.Fill
+            PressedFill: ='Header-AssetDetails_DetScn'.Fill
+            Width: =defaultLayouts.width
+            ZIndex: =1
+
+        "'Nav-Details_DetScn' As rectangle":
+            DisabledFill: ='Nav-Details_DetScn'.Fill
+            Fill: |-
+                =If(
+                    toastRecordDeleted = true,
+                    ColorValue("#cc5c5b"),
+                    ColorValue("#393537")
+                )
+            Height: =88
+            HoverFill: ='Nav-Details_DetScn'.Fill
+            PressedFill: ='Nav-Details_DetScn'.Fill
+            Width: =defaultLayouts.width
+            Y: =1048
+            ZIndex: =2
+
+    "'Image-BeanEater_DetScn' As image":
+        Height: =210
+        HoverBorderColor: =ColorFade('Image-BeanEater_DetScn'.BorderColor, 20%)
+        HoverFill: =ColorFade('Image-BeanEater_DetScn'.Fill, 20%)
+        Image: =BeanEater
+        PressedBorderColor: =ColorFade('Image-BeanEater_DetScn'.BorderColor, -20%)
+        PressedFill: =ColorFade('Image-BeanEater_DetScn'.Fill, -20%)
+        Visible: =[@showDeleteItemGif]
+        Width: =258
+        X: =191
+        Y: =406
+        ZIndex: =9
+
+    "'Icon-Cancel_EdtScn_1' As icon.Cancel":
+        AccessibleLabel: ='Icon-Cancel_EdtScn_1'.Tooltip
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Color: |-
+            =ColorValue("#02adf1")
+        DisabledFill: ='Icon-Cancel_EdtScn_1'.Fill
+        FocusedBorderColor: =RGBA(0, 0, 0, 0)
+        FocusedBorderThickness: =0
+        Height: =88
+        HoverBorderColor: =RGBA(0, 0, 0, 0)
+        HoverColor: |-
+            =ColorValue("#02adf1")
+        HoverFill: =RGBA(0, 0, 0, 0)
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =ResetForm('Form-Edit_EdtScn');
+            Navigate(
+                MainScreen,
+                ScreenTransition.Fade
+            )
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        PressedBorderColor: =RGBA(0, 0, 0, 0)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =RGBA(0, 0, 0, 0)
+        TabIndex: =0
+        Tooltip: ="Cancel item"
+        Width: =88
+        X: =552
+        ZIndex: =10
+

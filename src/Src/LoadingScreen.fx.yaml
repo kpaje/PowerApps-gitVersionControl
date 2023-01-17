@@ -1,0 +1,143 @@
+LoadingScreen As screen:
+    Fill: =RGBA(0, 0, 0, 1)
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |
+        =//Improves startup performance; dependant on device memory
+        /*Concurrent (
+            SaveData(
+                TransToLocalCache,
+                "TransToLocalCache"
+            ),
+            SaveData(
+                TransLibLocalCache,
+                "TransLibLocalCache"
+            ),
+            SaveData(
+                ItemDescLocalCache,
+                "ItemDescLocalCache"
+            ),
+            SaveData(
+                assetTransferMaster,
+                "assetTransferMaster"
+            )
+        );
+        Concurrent(
+            LoadData(
+                TransLibLocalCache,
+                "TransLibLocalCache"
+            ),
+            LoadData(
+                ItemDescLocalCache,
+                "ItemDescLocalCache"
+            ),
+            LoadData(
+                assetTransferMaster,
+                "assetTransferMaster"
+            )
+        );*/
+        //Turns off loading animation once data is ready
+        Set([@isloadingAnimation], false)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Group-KCLSLogo_LdScn' As group":
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =5
+
+        "'Image-kcls_LdScn' As image":
+            BorderColor: =RGBA(0, 18, 107, 0)
+            DisabledBorderColor: =RGBA(166, 166, 166, 0)
+            DisabledFill: =RGBA(244, 244, 244, 0)
+            FocusedBorderThickness: =0
+            Height: =270
+            HoverBorderColor: =ColorFade('Image-kcls_LdScn'.BorderColor, 20%)
+            HoverFill: =ColorFade('Image-kcls_LdScn'.Fill, 20%)
+            Image: =[@kclsLogoGif]
+            PressedBorderColor: =ColorFade('Image-kcls_LdScn'.BorderColor, -20%)
+            PressedFill: =ColorFade('Image-kcls_LdScn'.Fill, -20%)
+            Width: =270
+            X: =169
+            Y: =264
+            ZIndex: =1
+
+        "'Rectangle-FadeIn_LdScn' As rectangle":
+            BorderColor: =RGBA(0, 0, 0, 1)
+            DisabledFill: ='Rectangle-FadeIn_LdScn'.Fill
+            Fill: |-
+                =//Simulates a fade-in; divides the opacity by the duration of timer
+                RGBA(
+                    0,
+                    0,
+                    0,
+                    1 - 'Timer-FadeIn_LdScn'.Value/'Timer-FadeIn_LdScn'.Duration
+                )
+            Height: =270
+            HoverFill: ='Rectangle-FadeIn_LdScn'.Fill
+            PressedFill: ='Rectangle-FadeIn_LdScn'.Fill
+            Width: =280
+            X: =164
+            Y: =264
+            ZIndex: =3
+
+    "'Group-Timers_LdScn' As group":
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =5
+
+        "'Timer-loading-LdScn' As timer":
+            AutoStart: |-
+                =If(
+                    [@isloadingAnimation] = false,
+                    true
+                )
+            BorderColor: =ColorFade('Timer-loading-LdScn'.Fill, -15%)
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 0)
+            DisabledBorderColor: =ColorFade('Timer-loading-LdScn'.BorderColor, 70%)
+            DisabledColor: =ColorFade('Timer-loading-LdScn'.Fill, 90%)
+            DisabledFill: =ColorFade('Timer-loading-LdScn'.Fill, 70%)
+            Duration: =500
+            Fill: =RGBA(56, 96, 178, 0)
+            FocusedBorderThickness: =0
+            Height: =70
+            HoverBorderColor: =ColorFade('Timer-loading-LdScn'.BorderColor, 20%)
+            HoverColor: =RGBA(255, 255, 255, 0)
+            HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+            OnTimerEnd: |-
+                =Navigate(
+                    MainScreen,
+                    ScreenTransition.Fade
+                )
+            PressedBorderColor: ='Timer-loading-LdScn'.Fill
+            PressedColor: ='Timer-loading-LdScn'.Fill
+            PressedFill: ='Timer-loading-LdScn'.Color
+            Width: =280
+            X: =24
+            Y: =110
+            ZIndex: =2
+
+        "'Timer-FadeIn_LdScn' As timer":
+            AutoPause: =false
+            AutoStart: =true
+            BorderColor: =ColorFade('Timer-FadeIn_LdScn'.Fill, -15%)
+            BorderThickness: =0
+            Color: =RGBA(255, 255, 255, 0)
+            DisabledBorderColor: =ColorFade('Timer-FadeIn_LdScn'.BorderColor, 70%)
+            DisabledColor: =ColorFade('Timer-FadeIn_LdScn'.Fill, 90%)
+            DisabledFill: =ColorFade('Timer-FadeIn_LdScn'.Fill, 70%)
+            Duration: =800
+            Fill: =RGBA(56, 96, 178, 0)
+            Height: =70
+            HoverBorderColor: =ColorFade('Timer-FadeIn_LdScn'.BorderColor, 20%)
+            PressedBorderColor: ='Timer-FadeIn_LdScn'.Fill
+            PressedColor: ='Timer-FadeIn_LdScn'.Fill
+            PressedFill: ='Timer-FadeIn_LdScn'.Color
+            Width: =280
+            X: =24
+            Y: =40
+            ZIndex: =4
+

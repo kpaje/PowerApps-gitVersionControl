@@ -1,0 +1,812 @@
+StagingScreen As screen:
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: =
+    Orientation: =If(StagingScreen.Width < StagingScreen.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= StagingScreen.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Gallery-Staging_StgScn' As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+        AccessibleLabel: ="Detailed View Gallery"
+        BorderColor: |-
+            =ColorValue("#393537")
+        DisabledBorderColor: ='Gallery-Staging_StgScn'.BorderColor
+        DisabledFill: ='Gallery-Staging_StgScn'.Fill
+        Fill: =RGBA(255,255,255,0)
+        Height: =530
+        HoverBorderColor: ='Gallery-Staging_StgScn'.BorderColor
+        HoverFill: ='Gallery-Staging_StgScn'.Fill
+        Items: =Staging
+        Layout: =Layout.Vertical
+        LoadingSpinnerColor: ='Gallery-Staging_StgScn'.BorderColor
+        PressedBorderColor: ='Gallery-Staging_StgScn'.BorderColor
+        PressedFill: ='Gallery-Staging_StgScn'.Fill
+        TabIndex: =0
+        TemplateFill: =If(ThisItem.IsSelected, RGBA(0, 0,0,0.09))
+        TemplatePadding: =0
+        TemplateSize: =334
+        Transition: =Transition.Pop
+        Y: =518
+        ZIndex: =5
+
+        "'Separator-Staging_StgScn' As rectangle":
+            DisabledFill: ='Separator-Staging_StgScn'.Fill
+            FocusedBorderColor: ='Separator-Staging_StgScn'.BorderColor
+            Height: =1
+            HoverFill: ='Separator-Staging_StgScn'.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: ='Separator-Staging_StgScn'.Fill
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =1
+
+        "'Icon-Trash_StgScn' As icon.Trash":
+            AccessibleLabel: ="Trash Icon"
+            Color: =RGBA(204,92,91,1)
+            DisabledFill: ='Icon-Trash_StgScn'.Fill
+            FocusedBorderColor: ='Icon-Trash_StgScn'.BorderColor
+            FocusedBorderThickness: =0
+            Height: =334
+            HoverBorderColor: =ColorFade('Icon-Trash_StgScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-Trash_StgScn'.Color, 20%)
+            HoverFill: ='Icon-Trash_StgScn'.Fill
+            Icon: =Icon.Trash
+            OnSelect: |-
+                =Remove(
+                    [@Staging],
+                    ThisItem
+                )
+            PressedBorderColor: =ColorFade('Icon-Trash_StgScn'.BorderColor, -20%)
+            PressedColor: =ColorFade('Icon-Trash_StgScn'.Color, -20%)
+            PressedFill: ='Icon-Trash_StgScn'.Fill
+            TabIndex: =0
+            Width: =73
+            X: =567
+            ZIndex: =2
+
+        "'Icon-Staging_StgScn' As icon.Save":
+            Color: |-
+                =Switch(
+                    ThisItem.'Staging-Item Description',
+                    "Laptop",
+                    ColorValue("#FF9191"),
+                    "Tablet",
+                    ColorValue("#FFB283"),
+                    "Printer",
+                    ColorValue("#F2E296"),
+                    "Color Printer",
+                    ColorValue("#F2E296"),
+                    "B/W Printer",
+                    ColorValue("#F2E296"),
+                    "Desktop",
+                    ColorValue("#9BDDFF"),
+                    "TV",
+                    ColorValue("#92FFD5"),
+                    "Game Console",
+                    ColorValue("#C3FF8B"),
+                    "Projector",
+                    ColorValue("#9C8FFF"),
+                    "Payment Vending Device",
+                    ColorValue("#92FFD5"),
+                    "Plotter/Large Format",
+                    ColorValue("#F2E296"),
+                    "Tools",
+                    ColorValue("#C3FF8B"),
+                    "Router",
+                    ColorValue("#9C8FFF"),
+                    "SAN",
+                    ColorValue("#9C8FFF"),
+                    "Self Service Kiosk",
+                    ColorValue("#9BDDFF"),
+                    "Server",
+                    ColorValue("#92FFD5"),
+                    "Switch",
+                    ColorValue("#FF9191"),
+                    "ScanPro",
+                    ColorValue("#F2E296")
+                )
+            DisabledFill: ='Icon-Staging_StgScn'.Fill
+            Height: =Parent.TemplateHeight/2.8
+            HoverBorderColor: =ColorFade('Icon-Staging_StgScn'.BorderColor, 20%)
+            HoverColor: =ColorFade('Icon-Staging_StgScn'.Color, 20%)
+            HoverFill: ='Icon-Staging_StgScn'.Fill
+            Icon: |-
+                =Switch(
+                    ThisItem.'Staging-Item Description',
+                    "Laptop",
+                    Icon.Laptop,
+                    "Tablet",
+                    Icon.Tablet,
+                    "Printer",
+                    Icon.Printing3D,
+                    "Color Printer",
+                    Icon.Printing3D,
+                    "B/W Printer",
+                    Icon.Printing3D,
+                    "Desktop",
+                    Icon.ComputerDesktop,
+                    "TV",
+                    Icon.Devices,
+                    "Game Console",
+                    Icon.Controller,
+                    "Projector",
+                    Icon.CameraAperture,
+                    "Payment Vending Device",
+                    Icon.Waffle,
+                    "Plotter/Large Format",
+                    Icon.Printing3D,
+                    "Router",
+                    Icon.Database,
+                    "SAN",
+                    Icon.Database,
+                    "Self Service Kiosk",
+                    Icon.PhotosPictures,
+                    "Server",
+                    Icon.Database,
+                    "Switch",
+                    Icon.Database,
+                    "Tools",
+                    Icon.ToolsWrench,
+                    Icon.CameraAperture,
+                    "ScanPro"
+                )
+            OnSelect: =Select(Parent)
+            PressedBorderColor: =ColorFade('Icon-Staging_StgScn'.BorderColor, -20%)
+            PressedColor: =ColorFade('Icon-Staging_StgScn'.Color, -20%)
+            PressedFill: ='Icon-Staging_StgScn'.Fill
+            Width: =Parent.TemplateWidth/5.5
+            X: =Parent.TemplateWidth / 1.25 - ('Label-ItmDesc_StgScn'.Width + 'Field-ItmDesc_StgScn'.Width +'Icon-Trash_StgScn'.Width)
+            Y: =99
+            ZIndex: =15
+
+        "'Group-Fields_StgScn' As group":
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =15
+
+            "'Field-TransferTo_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: ='Field-TransferTo_StgScn'.BorderColor
+                Height: =50
+                HoverBorderColor: ='Field-TransferTo_StgScn'.BorderColor
+                HoverColor: ='Field-TransferTo_StgScn'.Color
+                HoverFill: ='Field-TransferTo_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Field-TransferTo_StgScn'.BorderColor
+                PressedColor: ='Field-TransferTo_StgScn'.Color
+                PressedFill: ='Field-TransferTo_StgScn'.Fill
+                Size: =19
+                Text: =ThisItem.'Staging-Transfer To'
+                Width: =199
+                X: =356
+                Y: =124
+                ZIndex: =4
+
+            "'Field-ItmDesc_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: ='Field-ItmDesc_StgScn'.BorderColor
+                Height: =50
+                HoverBorderColor: ='Field-ItmDesc_StgScn'.BorderColor
+                HoverColor: ='Field-ItmDesc_StgScn'.Color
+                HoverFill: ='Field-ItmDesc_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Field-ItmDesc_StgScn'.BorderColor
+                PressedColor: ='Field-ItmDesc_StgScn'.Color
+                PressedFill: ='Field-ItmDesc_StgScn'.Fill
+                Size: =19
+                Text: =ThisItem.'Staging-Item Description'
+                Width: =199
+                X: =356
+                Y: =174
+                ZIndex: =6
+
+            "'Field-Date_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: =RGBA(0, 18, 107, 1)
+                Height: =50
+                HoverBorderColor: =RGBA(0, 18, 107, 1)
+                HoverColor: =
+                HoverFill: =
+                OnSelect: =Select(Parent)
+                PressedBorderColor: =
+                PressedColor: =
+                PressedFill: =
+                Size: =19
+                Text: =ThisItem.'Staging-Date'
+                Visible: =false
+                Width: =199
+                X: =356
+                Y: =224
+                ZIndex: =8
+
+            "'Field-Signature_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: =RGBA(0, 18, 107, 1)
+                Height: =50
+                HoverBorderColor: =RGBA(0, 18, 107, 1)
+                HoverColor: =
+                HoverFill: =
+                OnSelect: =Select(Parent)
+                PressedBorderColor: =
+                PressedColor: =
+                PressedFill: =
+                Size: =19
+                Text: |
+                    =If(!IsMatch('Field-ItmDesc_StgScn'.Text,"Laptop"),"N/A", IsBlank(ThisItem.'Staging-Employee'),"N/A", ThisItem.'Staging-Employee' )
+                Width: =199
+                X: =356
+                Y: =245
+                ZIndex: =10
+
+            "'Field-TransLib_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: ='Field-TransLib_StgScn'.BorderColor
+                Height: =50
+                HoverBorderColor: ='Field-TransLib_StgScn'.BorderColor
+                HoverColor: ='Field-TransLib_StgScn'.Color
+                HoverFill: ='Field-TransLib_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Field-TransLib_StgScn'.BorderColor
+                PressedColor: ='Field-TransLib_StgScn'.Color
+                PressedFill: ='Field-TransLib_StgScn'.Fill
+                Size: =19
+                Text: =ThisItem.'Staging-Transferring Library'
+                Width: =199
+                X: =356
+                Y: =74
+                ZIndex: =12
+
+            "'Field-AssetTag_StgScn' As label":
+                BorderColor: |-
+                    =ColorValue("#393537")
+                FocusedBorderColor: ='Field-AssetTag_StgScn'.BorderColor
+                Height: =50
+                HoverBorderColor: ='Field-AssetTag_StgScn'.BorderColor
+                HoverColor: ='Field-AssetTag_StgScn'.Color
+                HoverFill: ='Field-AssetTag_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Field-AssetTag_StgScn'.BorderColor
+                PressedColor: ='Field-AssetTag_StgScn'.Color
+                PressedFill: ='Field-AssetTag_StgScn'.Fill
+                Size: =19
+                Text: |-
+                    =ThisItem.'Staging-Asset Tag #'
+                Width: =199
+                X: =356
+                Y: =24
+                ZIndex: =13
+
+        "'Group-Labels_StgScn' As group":
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =15
+
+            "'Label-TransferTo_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-TransferTo_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='Label-TransferTo_StgScn'.BorderColor
+                HoverColor: ='Label-TransferTo_StgScn'.Color
+                HoverFill: ='Label-TransferTo_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-TransferTo_StgScn'.BorderColor
+                PressedColor: ='Label-TransferTo_StgScn'.Color
+                PressedFill: ='Label-TransferTo_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Transfer:"
+                Width: =203
+                X: =151
+                Y: =124
+                ZIndex: =3
+
+            "'Label-ItmDesc_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-ItmDesc_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='Label-ItmDesc_StgScn'.BorderColor
+                HoverColor: ='Label-ItmDesc_StgScn'.Color
+                HoverFill: ='Label-ItmDesc_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-ItmDesc_StgScn'.BorderColor
+                PressedColor: ='Label-ItmDesc_StgScn'.Color
+                PressedFill: ='Label-ItmDesc_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Description:"
+                Width: =203
+                X: =151
+                Y: =174
+                ZIndex: =5
+
+            "'Label-Date_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-Date_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='Label-Date_StgScn'.BorderColor
+                HoverColor: ='Label-Date_StgScn'.Color
+                HoverFill: ='Label-Date_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-Date_StgScn'.BorderColor
+                PressedColor: ='Label-Date_StgScn'.Color
+                PressedFill: ='Label-Date_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Date:"
+                Visible: =false
+                Width: =203
+                X: =151
+                Y: =224
+                ZIndex: =7
+
+            "'Label-Signature_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-Signature_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =61
+                HoverBorderColor: ='Label-Signature_StgScn'.BorderColor
+                HoverColor: ='Label-Signature_StgScn'.Color
+                HoverFill: ='Label-Signature_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-Signature_StgScn'.BorderColor
+                PressedColor: ='Label-Signature_StgScn'.Color
+                PressedFill: ='Label-Signature_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Assigned Employee:"
+                Width: =203
+                X: =151
+                Y: =238
+                ZIndex: =9
+
+            "'Label-TransLib_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-TransLib_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='Label-TransLib_StgScn'.BorderColor
+                HoverColor: ='Label-TransLib_StgScn'.Color
+                HoverFill: ='Label-TransLib_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-TransLib_StgScn'.BorderColor
+                PressedColor: ='Label-TransLib_StgScn'.Color
+                PressedFill: ='Label-TransLib_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Library:"
+                Width: =203
+                X: =151
+                Y: =74
+                ZIndex: =11
+
+            "'Label-AssetTag_StgScn' As label":
+                Align: =Align.Right
+                FocusedBorderColor: ='Label-AssetTag_StgScn'.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                HoverBorderColor: ='Label-AssetTag_StgScn'.BorderColor
+                HoverColor: ='Label-AssetTag_StgScn'.Color
+                HoverFill: ='Label-AssetTag_StgScn'.Fill
+                OnSelect: =Select(Parent)
+                PressedBorderColor: ='Label-AssetTag_StgScn'.BorderColor
+                PressedColor: ='Label-AssetTag_StgScn'.Color
+                PressedFill: ='Label-AssetTag_StgScn'.Fill
+                Size: |-
+                    =//Parent.TemplateHeight/19
+                    21
+                Text: |-
+                    ="Asset Tag:"
+                Width: =203
+                X: =151
+                Y: =24
+                ZIndex: =14
+
+    "'Label-RecordCount_StgScn' As label":
+        Align: =Align.Center
+        Color: =RGBA(231, 231, 104, 1)
+        Font: =Font.Verdana
+        FontWeight: =Bold
+        Height: =69
+        Size: =24
+        Text: |-
+            =CountRows(Staging.'Staging-Asset Tag #')
+        Visible: |-
+            =If(CountRows(Staging.'Staging-Asset Tag #')=0, false, true)
+        Width: =85
+        X: =555
+        Y: =88
+        ZIndex: =11
+
+    "'Group-Titles_StgScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        "'SubTitle-DetailedView_StgScn' As label":
+            Align: =Align.Center
+            Color: =RGBA(255,255,255,1)
+            Fill: =RGBA(0,0,0,1)
+            FocusedBorderColor: ='SubTitle-DetailedView_StgScn'.BorderColor
+            Height: =69
+            HoverBorderColor: ='SubTitle-DetailedView_StgScn'.BorderColor
+            HoverColor: ='SubTitle-DetailedView_StgScn'.Color
+            HoverFill: ='SubTitle-DetailedView_StgScn'.Fill
+            PressedBorderColor: ='SubTitle-DetailedView_StgScn'.BorderColor
+            PressedColor: ='SubTitle-DetailedView_StgScn'.Color
+            PressedFill: ='SubTitle-DetailedView_StgScn'.Fill
+            Size: =21
+            Text: ="Detailed View"
+            Width: =640
+            Y: =449
+            ZIndex: =8
+
+        "'SubTitle-QuickView_StgScn' As label":
+            Align: =Align.Center
+            Color: =RGBA(255,255,255,1)
+            Fill: =RGBA(0,0,0,1)
+            FocusedBorderColor: ='SubTitle-QuickView_StgScn'.BorderColor
+            Height: =69
+            HoverBorderColor: ='SubTitle-QuickView_StgScn'.BorderColor
+            HoverColor: ='SubTitle-QuickView_StgScn'.Color
+            HoverFill: ='SubTitle-QuickView_StgScn'.Fill
+            PressedBorderColor: ='SubTitle-QuickView_StgScn'.BorderColor
+            PressedColor: ='SubTitle-QuickView_StgScn'.Color
+            PressedFill: ='SubTitle-QuickView_StgScn'.Fill
+            Size: =21
+            Text: ="Quick View"
+            Width: =640
+            Y: =88
+            ZIndex: =9
+
+        "'Title-Staging_StgScn' As label":
+            Color: =RGBA(255,255,255,1)
+            FocusedBorderColor: ='Title-Staging_StgScn'.BorderColor
+            Font: =Font.Georgia
+            Height: =88
+            HoverBorderColor: ='Title-Staging_StgScn'.BorderColor
+            HoverColor: ='Title-Staging_StgScn'.Color
+            HoverFill: ='Title-Staging_StgScn'.Fill
+            PaddingLeft: =20
+            PressedBorderColor: ='Title-Staging_StgScn'.BorderColor
+            PressedColor: ='Title-Staging_StgScn'.Color
+            PressedFill: ='Title-Staging_StgScn'.Fill
+            Size: =27
+            Text: ="Staging"
+            Width: =640
+            Wrap: =false
+            ZIndex: =10
+
+    "'Group-DefaultLayouts_StgScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        "'Header-Staging_StgScn' As rectangle":
+            DisabledFill: ='Header-Staging_StgScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            FocusedBorderColor: ='Header-Staging_StgScn'.BorderColor
+            Height: =88
+            HoverFill: ='Header-Staging_StgScn'.Fill
+            PressedFill: ='Header-Staging_StgScn'.Fill
+            Width: =defaultLayouts.width
+            ZIndex: =1
+
+        "'Nav-Staging_StgScn' As rectangle":
+            DisabledFill: ='Nav-Staging_StgScn'.Fill
+            Fill: |-
+                =ColorValue("#393537")
+            Height: =88
+            HoverFill: ='Nav-Staging_StgScn'.Fill
+            PressedFill: ='Nav-Staging_StgScn'.Fill
+            Width: =defaultLayouts.width
+            Y: =1048
+            ZIndex: =2
+
+    "'Group-Buttons_StgScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =16
+
+        "'Button-Submit_StgScn' As button":
+            BorderColor: |-
+                =ColorValue("#02adf1")
+            Color: =RGBA(255,255,255,1)
+            DisplayMode: =If(!IsBlank('Gallery-QuickView_StgScn'), DisplayMode.Edit, DisplayMode.Disabled)
+            Fill: |-
+                =ColorValue("#02adf1")
+            FocusedBorderColor: ='Button-Submit_StgScn'.BorderColor
+            Height: =60
+            HoverBorderColor: =ColorFade('Button-Submit_StgScn'.BorderColor, 20%)
+            HoverFill: |-
+                =ColorValue("#02adf1")
+            OnSelect: |-
+                =//Pushes all records in the Staging data table to the SharePoint List//
+                ForAll(
+                    Staging,
+                    Patch(
+                        'AssetTransferApp-master',
+                        {
+                            'Asset Tag #': 'Staging-Asset Tag #',
+                            'Transferring Library': 'Staging-Transferring Library',
+                            Signature: 'Staging-Signature',
+                            Date: 'Staging-Date',
+                            'Item Description': 'Staging-Item Description',
+                            'Transfer to:': 'Staging-Transfer To',
+                            'Email Assigned to': 'Staging-Employee'
+                        }
+                    )
+                );
+                //Clears all field inputs and dropdowns and resets Staging Collection//
+                Concurrent(
+                    Clear(Staging),
+                    ResetForm('Form-Edit_EdtScn'),
+                    Reset('Button-BarcodeScanner_ScaScn'),
+                    Set(
+                        [@assetTag],
+                        ""
+                    ),
+                    Set(
+                        [@clearInputs],
+                        true
+                    );
+                    Set(
+                        [@clearInputs],
+                        false
+                    );
+                    Set(
+                        [@toastUploadComplete],
+                        true
+                    );
+                    
+                )
+            PressedBorderColor: =RGBA(255, 255, 255, 1)
+            PressedColor: |-
+                =ColorValue("#02adf1")
+            PressedFill: =RGBA(255, 255, 255, 1)
+            Size: =24
+            Text: ="Submit"
+            Width: =280
+            X: =338
+            Y: =1062
+            ZIndex: =6
+
+        "'Button-Back_StgScn' As button":
+            BorderColor: |-
+                =ColorValue("#02adf1")
+            Fill: |-
+                =ColorValue("#02adf1")
+            FocusedBorderColor: ='Button-Back_StgScn'.BorderColor
+            Height: =60
+            HoverBorderColor: =ColorFade('Button-Back_StgScn'.BorderColor, 20%)
+            HoverFill: |-
+                =ColorValue("#02adf1")
+            OnSelect: |-
+                =Navigate(EditScreen, ScreenTransition.None);
+                Set([@toastUploadComplete], false);
+            PressedBorderColor: =RGBA(255, 255, 255, 1)
+            PressedColor: |-
+                =ColorValue("#02adf1")
+            PressedFill: =RGBA(255, 255, 255, 1)
+            Size: =24
+            Text: ="Back"
+            Width: =280
+            X: =22
+            Y: =1062
+            ZIndex: =7
+
+        "'Button-Home_StgScn' As button":
+            BorderColor: =Color.LightSeaGreen
+            Fill: =Color.LightSeaGreen
+            FocusedBorderColor: ='Button-Home_StgScn'.BorderColor
+            Height: =60
+            HoverBorderColor: =ColorFade('Button-Home_StgScn'.BorderColor, 20%)
+            HoverFill: |-
+                =ColorValue("#02adf1")
+            OnSelect: |-
+                =Refresh([@'AssetTransferApp-master']);
+                Navigate(MainScreen, ScreenTransition.Cover);
+                Set([@toastUploadComplete], false)
+            PressedBorderColor: =RGBA(255, 255, 255, 1)
+            PressedColor: |-
+                =ColorValue("#02adf1")
+            PressedFill: =RGBA(255, 255, 255, 1)
+            Size: =24
+            Text: ="Home"
+            Visible: =toastUploadComplete
+            Width: =280
+            X: =338
+            Y: =1062
+            ZIndex: =15
+
+    "'Group-Toast-StgScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =17
+
+        "'Audio-UploadComplete_StgScn' As audioPlayback":
+            AutoStart: =If(toastUploadComplete, true, ToastSound, false, false) 
+            BorderColor: =RGBA(255, 255, 0, 1)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =68
+            Media: =UploadSound
+            ShowControls: =false
+            Start: =ToastSound
+            StartTime: =0.65
+            Visible: =toastUploadComplete
+            Width: =73
+            X: =255
+            Y: =10
+            ZIndex: =12
+
+        "'Toast-UploadComplete_StgScn' As image":
+            Height: =88
+            HoverBorderColor: =ColorFade('Toast-UploadComplete_StgScn'.BorderColor, 20%)
+            HoverFill: =ColorFade('Toast-UploadComplete_StgScn'.Fill, 20%)
+            Image: =uploadComplete
+            PressedBorderColor: =ColorFade('Toast-UploadComplete_StgScn'.BorderColor, -20%)
+            PressedFill: =ColorFade('Toast-UploadComplete_StgScn'.Fill, -20%)
+            Visible: =toastUploadComplete
+            Width: =324
+            X: =305
+            ZIndex: =16
+
+    "'Gallery-QuickView_StgScn' As gallery.galleryVertical":
+        Height: =247
+        Items: =Staging
+        Layout: =Layout.Vertical
+        TemplateSize: =40
+        Y: =202
+        ZIndex: =21
+
+        "'Field-dataAsset_StgScn' As label":
+            Align: =Align.Center
+            Height: =48
+            LineHeight: =1
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =Parent.TemplateHeight/2.4
+            Text: |-
+                =ThisItem.'Staging-Asset Tag #'
+            Width: =178
+            Y: =2
+            ZIndex: =1
+
+        "'Field-dataLib_StgScn' As label":
+            Align: =Align.Center
+            Height: =48
+            LineHeight: =1
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =Parent.TemplateHeight/2.4
+            Text: =ThisItem.'Staging-Transferring Library'
+            Width: =114
+            X: =178
+            Y: =2
+            ZIndex: =2
+
+        "'Field-dataTransTo_StgScn' As label":
+            Align: =Align.Center
+            Height: =48
+            LineHeight: =1
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =Parent.TemplateHeight/2.4
+            Text: =ThisItem.'Staging-Transfer To'
+            Width: =121
+            X: =292
+            Y: =2
+            ZIndex: =3
+
+        "'Field-dataItmDesc_StgScn' As label":
+            Align: =Align.Center
+            Height: =48
+            LineHeight: =1
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingTop: =0
+            Size: =Parent.TemplateHeight/2.4
+            Text: =ThisItem.'Staging-Item Description'
+            Width: =217
+            X: =413
+            Y: =2
+            ZIndex: =4
+
+    "'Group-dataTitle_StgScn' As group":
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =21
+
+        "'Label-dataAsset_StgScn' As label":
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: |-
+                =ColorValue("#02adf1")
+            Height: =45
+            Size: ='Label-dataItmDesc_StgScn'.Height/2.2
+            Text: ="Asset Tag"
+            Width: =182
+            Y: =157
+            ZIndex: =17
+
+        "'Label-dataLib_StgScn' As label":
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: |-
+                =ColorValue("#02adf1")
+            Height: =45
+            Size: ='Label-dataItmDesc_StgScn'.Height/2.2
+            Text: ="Library"
+            Width: =113
+            X: =182
+            Y: =157
+            ZIndex: =18
+
+        "'Label-dataTransTo_StgScn' As label":
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: |-
+                =ColorValue("#02adf1")
+            Height: =45
+            Size: ='Label-dataItmDesc_StgScn'.Height/2.2
+            Text: ="Transfer"
+            Width: =127
+            X: =294
+            Y: =157
+            ZIndex: =19
+
+        "'Label-dataItmDesc_StgScn' As label":
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: |-
+                =ColorValue("#02adf1")
+            Height: =45
+            Size: ='Label-dataItmDesc_StgScn'.Height/2.2
+            Text: ="Description"
+            Width: =218
+            X: =421
+            Y: =157
+            ZIndex: =20
+

@@ -1,0 +1,21 @@
+DevScreen As screen:
+    BackgroundImage: =
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(DevScreen.Width < DevScreen.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= DevScreen.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    "'Title-DevSandbox_DevScn' As label":
+        FocusedBorderColor: ='Title-DevSandbox_DevScn'.BorderColor
+        Height: =70
+        HoverBorderColor: ='Title-DevSandbox_DevScn'.BorderColor
+        HoverColor: ='Title-DevSandbox_DevScn'.Color
+        HoverFill: ='Title-DevSandbox_DevScn'.Fill
+        PressedBorderColor: ='Title-DevSandbox_DevScn'.BorderColor
+        PressedColor: ='Title-DevSandbox_DevScn'.Color
+        PressedFill: ='Title-DevSandbox_DevScn'.Fill
+        Size: =21
+        Text: ="Dev Sandbox"
+        Width: =560
+        ZIndex: =3
+

@@ -1,0 +1,6 @@
+Test_7F478737223C4B69 As AppTest:
+    OnTestComplete: =
+    OnTestSuiteComplete: |-
+        =TestSuiteResult.TestsPassed;
+        TestSuiteResult.TestsFailed
+
