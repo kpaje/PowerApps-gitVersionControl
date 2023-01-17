@@ -3,7 +3,8 @@ App As appinfo:
     MinScreenHeight: =320
     MinScreenWidth: =320
     OnStart: |
-        =//Styles//
+        =//test
+        //Styles//
         Set(
             defaultLayouts,
             {width: 643}
