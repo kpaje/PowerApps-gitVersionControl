@@ -98,11 +98,11 @@
     "Id": "16fe5fd3-3260-49cb-8416-e1fb9caf0c21",
     "InstrumentationKey": "",
     "LocalDatabaseReferences": "{}",
-    "Name": "DEV-Asset Transfer Form",
+    "Name": "DEV-Asset Transfer Form - versionControl",
     "OriginatingVersion": "1.284"
   },
   "PublishInfo": {
-    "AppName": "DEV-Asset Transfer Form",
+    "AppName": "DEV-Asset Transfer Form - versionControl",
     "BackgroundColor": "rgba(0, 176, 240, 1)",
     "IconColor": "RGBA(255,255,255,1)",
     "IconName": "Edit",
